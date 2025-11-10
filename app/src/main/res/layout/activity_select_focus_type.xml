@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0A0A"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:text="Choose Your Focus Type"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Focus Type RadioGroup -->
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rbCoding"
+                android:text="Coding 💻"
+                android:textColor="#FFFFFF"
+                android:buttonTint="@color/radio_selector"
+                android:textSize="18sp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/rbStudying"
+                android:text="Studying 📚"
+                android:textColor="#FFFFFF"
+                android:buttonTint="@color/radio_selector"
+                android:textSize="18sp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/rbCooking"
+                android:text="Cooking 🍳"
+                android:textColor="#FFFFFF"
+                android:buttonTint="@color/radio_selector"
+                android:textSize="18sp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/rbTraining"
+                android:text="Training 🏋️"
+                android:textColor="#FFFFFF"
+                android:buttonTint="@color/radio_selector"
+                android:textSize="18sp"
+                android:layout_marginBottom="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+
+        <!-- Duration Selection -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Duration ⏱️"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioDuration"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="24dp">
+
+            <RadioButton
+                android:id="@+id/rb25min"
+                android:text="25 min"
+                android:textColor="#FFFFFF"
+                android:buttonTint="@color/radio_selector"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/rb50min"
+                android:text="50 min"
+                android:textColor="#FFFFFF"
+                android:buttonTint="@color/radio_selector"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RadioButton
+                android:id="@+id/rb75min"
+                android:text="75 min"
+                android:textColor="#FFFFFF"
+                android:buttonTint="@color/radio_selector"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RadioGroup>
+
+        <!-- Start & Cancel Buttons -->
+        <Button
+            android:id="@+id/btnStartFocus"
+            android:text="Start Focus Session"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_primary"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="12dp"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:text="Cancel"
+            android:textSize="14sp"
+            android:textColor="#8E8E93"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+</ScrollView>

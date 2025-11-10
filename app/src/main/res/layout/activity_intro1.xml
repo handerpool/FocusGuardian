@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@android:color/black"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Progress bar (top) -->
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:progress="25"
+        android:max="100"
+        android:progressTint="@android:color/white"
+        android:layout_marginBottom="40dp" />
+
+    <!-- Title -->
+    <TextView
+        android:text="Hey there!"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:text="What's the biggest thing holding you back from building better habits?"
+        android:textColor="#BBBBBB"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp" />
+
+    <!-- Options -->
+    <Button
+        android:id="@+id/btnOption1"
+        android:text="I lack motivation"
+        style="@style/SelectableOption" />
+
+    <Button
+        android:id="@+id/btnOption2"
+        android:text="I need to be more disciplined"
+        style="@style/SelectableOption" />
+
+    <Button
+        android:id="@+id/btnOption3"
+        android:text="I don't have enough time"
+        style="@style/SelectableOption" />
+
+    <Button
+        android:id="@+id/btnOption4"
+        android:text="I scroll too much on my phone"
+        style="@style/SelectableOption" />
+
+    <!-- Continue -->
+    <Button
+        android:id="@+id/btnContinue1"
+        android:text="Continue"
+        android:enabled="false"
+        android:backgroundTint="#444444"
+        android:textColor="#999999"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button_disabled" />
+</LinearLayout>

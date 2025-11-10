@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FocusGuardian</string>
+    <string name="select_apps">Select Apps to Block</string>
+    <string name="start_focus">Start Focus</string>
+    <string name="blocked_app_opened">Blocked app opened</string>
+    <string name="return_to_focus">Return to Focus</string>
+    <string name="end_session_submit_proof"><![CDATA[End Session & Submit Proof]]></string>
+    <string name="submit_proof">Submit Proof</string>
+    <string name="take_photo_camera">Take Photo (Camera)</string>
+    <string name="submit_proof_end_session"><![CDATA[Submit Proof & End Session]]></string>
+</resources>
