@@ -49,19 +49,23 @@ public class ProofUploadActivity extends AppCompatActivity {
     // Focus keywords
     private static final List<String> CODING_KEYWORDS = Arrays.asList(
             "computer", "laptop", "keyboard", "monitor", "screen", "desk",
-            "electronics", "technology", "code", "programming"
+            "electronics", "technology", "code", "programming", "mouse",
+            "display", "device", "workstation", "office", "pc", "mac"
     );
     private static final List<String> STUDYING_KEYWORDS = Arrays.asList(
             "book", "notebook", "paper", "desk", "writing", "pen",
-            "study", "library", "table", "text"
+            "study", "library", "table", "text", "document", "reading",
+            "pencil", "notes", "education", "learning"
     );
     private static final List<String> COOKING_KEYWORDS = Arrays.asList(
             "food", "kitchen", "cooking", "plate", "dish", "meal",
-            "ingredient", "utensil", "stove", "recipe"
+            "ingredient", "utensil", "stove", "recipe", "pot", "pan",
+            "chef", "cuisine", "culinary", "baking"
     );
     private static final List<String> TRAINING_KEYWORDS = Arrays.asList(
             "person", "gym", "fitness", "exercise", "sport", "training",
-            "equipment", "workout", "athletic", "health"
+            "equipment", "workout", "athletic", "health", "human", "body",
+            "muscle", "physical", "active", "athlete"
     );
 
     @Override
@@ -83,7 +87,7 @@ public class ProofUploadActivity extends AppCompatActivity {
 
         // ML Kit labeler
         ImageLabelerOptions options = new ImageLabelerOptions.Builder()
-                .setConfidenceThreshold(0.6f)
+                .setConfidenceThreshold(0.5f)
                 .build();
         labeler = ImageLabeling.getClient(options);
 
@@ -185,7 +189,7 @@ public class ProofUploadActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            tvAnalysisResult.setText("✅ Valid proof detected for: " + focusType);
+            tvAnalysisResult.setText("✅ Valid proof detected for: " + focusType + "\nDetected: " + detectedText);
             tvAnalysisResult.setTextColor(getResources().getColor(android.R.color.holo_green_light));
             btnSubmit.setEnabled(true);
             Toast.makeText(this, "Photo verified successfully! 🎉", Toast.LENGTH_LONG).show();
@@ -219,7 +223,7 @@ public class ProofUploadActivity extends AppCompatActivity {
             }
         }
 
-        return matchCount >= 2; // require at least 2 keywords to match
+        return matchCount >= 1; // require at least 1 keyword to match
     }
 
     private void endFocusSession(String message) {
