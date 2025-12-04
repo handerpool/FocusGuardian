@@ -21,12 +21,61 @@
             android:paddingEnd="24dp"
             android:paddingBottom="32dp">
 
+            <!-- Top Bar with User Info and Logout -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="FocusGuardian"
+                    android:textSize="14sp"
+                    android:textColor="#8E8E93"
+                    android:letterSpacing="0.15"
+                    android:textAllCaps="true"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/btnLogout"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:background="@drawable/bg_button_secondary"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="🚪"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="Logout"
+                        android:textSize="12sp"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- User Name -->
             <TextView
-                android:text="FocusGuardian"
-                android:textSize="14sp"
-                android:textColor="#8E8E93"
-                android:letterSpacing="0.15"
-                android:textAllCaps="true"
+                android:id="@+id/tvUserName"
+                android:text=""
+                android:textSize="16sp"
+                android:textColor="#FF9500"
+                android:visibility="gone"
                 android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

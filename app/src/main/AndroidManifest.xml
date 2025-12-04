@@ -38,13 +38,22 @@
         <activity android:name=".view.SelectAppsActivity" />
         <activity android:name=".view.SelectFocusTypeActivity" />
 
-        <activity android:name=".view.MainActivity"
+        <!-- Login Activity - Launcher -->
+        <activity android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- Register Activity -->
+        <activity android:name=".view.RegisterActivity"
+            android:exported="false" />
+
+        <!-- Main Activity (after login) -->
+        <activity android:name=".view.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".view.ProofUploadActivity"
             android:exported="false"

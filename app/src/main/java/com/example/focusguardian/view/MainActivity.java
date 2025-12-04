@@ -13,19 +13,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.focusguardian.R;
+import com.example.focusguardian.data.AuthRepository;
+import com.example.focusguardian.data.User;
 import com.example.focusguardian.service.AppMonitorService;
 
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout btnSelectApps, btnStartFocus;
-    private TextView tvWelcome, tvSelectedApps, tvFocusEmoji, tvFocusStatus, tvStartButtonText;
+    private LinearLayout btnSelectApps, btnStartFocus, btnLogout;
+    private TextView tvWelcome, tvSelectedApps, tvFocusEmoji, tvFocusStatus, tvStartButtonText, tvUserName;
     private SharedPreferences prefs;
     private boolean isFocusActive = false;
+    private AuthRepository authRepository;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -33,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         prefs = getSharedPreferences("fg_prefs", MODE_PRIVATE);
+        authRepository = AuthRepository.getInstance(this);
+        
+        // Check if user is logged in
+        if (!authRepository.isLoggedIn()) {
+            navigateToLogin();
+            return;
+        }
+        
         boolean firstLaunch = prefs.getBoolean("first_launch", true);
 
         if (firstLaunch) {
@@ -52,16 +64,38 @@ public class MainActivity extends AppCompatActivity {
 
         initializeViews();
         setupClickListeners();
+        updateUserInfo();
+    }
+    
+    private void navigateToLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+    
+    @SuppressLint("SetTextI18n")
+    private void updateUserInfo() {
+        User user = authRepository.getCurrentUser();
+        if (user != null && tvUserName != null) {
+            String displayName = user.getDisplayName();
+            if (displayName != null && !displayName.isEmpty()) {
+                tvUserName.setText("Hi, " + displayName + " 👋");
+                tvUserName.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void initializeViews() {
         btnSelectApps = findViewById(R.id.btnSelectApps);
         btnStartFocus = findViewById(R.id.btnStartFocus);
+        btnLogout = findViewById(R.id.btnLogout);
         tvWelcome = findViewById(R.id.tvWelcome);
         tvSelectedApps = findViewById(R.id.tvSelectedApps);
         tvFocusEmoji = findViewById(R.id.tvFocusEmoji);
         tvFocusStatus = findViewById(R.id.tvFocusStatus);
         tvStartButtonText = findViewById(R.id.tvStartButtonText);
+        tvUserName = findViewById(R.id.tvUserName);
     }
 
     private void setupClickListeners() {
@@ -77,6 +111,22 @@ public class MainActivity extends AppCompatActivity {
                 endFocusSession();
             }
         });
+        
+        if (btnLogout != null) {
+            btnLogout.setOnClickListener(v -> showLogoutDialog());
+        }
+    }
+    
+    private void showLogoutDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Logout", (dialog, which) -> {
+                    authRepository.logout();
+                    navigateToLogin();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     private void startFocusSession() {

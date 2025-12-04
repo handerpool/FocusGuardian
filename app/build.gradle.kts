@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -51,4 +52,8 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 // Material Components (if not already added)
     implementation("com.google.android.material:material:1.9.0")
+
+    // Firebase Authentication
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-auth")
 }
