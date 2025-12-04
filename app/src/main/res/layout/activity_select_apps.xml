@@ -10,19 +10,19 @@
         android:paddingTop="48dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <!-- Background gradient overlay -->
         <View
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="-50dp"
-            android:layout_marginEnd="-50dp"
-            android:alpha="0.12"
+            android:layout_marginTop="-60dp"
+            android:layout_marginEnd="-60dp"
+            android:alpha="0.15"
             android:background="@drawable/bg_circle_focus_enhanced" />
 
         <LinearLayout
@@ -30,34 +30,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Badge -->
-            <TextView
-                android:text="📱 STEP 1"
-                android:textSize="11sp"
-                android:textColor="#FF9500"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:background="@drawable/bg_badge_orange"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="6dp"
-                android:layout_marginBottom="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!-- Back Button and Badge Row -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Back Button -->
+                <FrameLayout
+                    android:id="@+id/btnBack"
+                    android:background="@drawable/bg_icon_circle"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="16dp">
+
+                    <TextView
+                        android:text="←"
+                        android:textSize="18sp"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+
+                <!-- Badge -->
+                <TextView
+                    android:text="🛡️ STEP 1 OF 2"
+                    android:textSize="11sp"
+                    android:textColor="#FF9500"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:background="@drawable/bg_badge_orange"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
             <TextView
-                android:text="Choose\ndistracting apps"
-                android:textSize="34sp"
+                android:text="Block distracting\napps"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:lineSpacingExtra="6dp"
-                android:layout_marginBottom="12dp"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="Select apps you want to block during focus sessions"
+                android:text="Choose which apps to block during your focus sessions"
                 android:textSize="15sp"
                 android:textColor="#8E8E93"
                 android:lineSpacingExtra="2dp"
@@ -66,30 +94,80 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <!-- Selected Counter Card -->
+    <!-- Search Bar -->
     <LinearLayout
         android:orientation="horizontal"
-        android:background="@drawable/bg_counter_card"
+        android:background="@drawable/bg_search_bar"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="20dp"
-        android:padding="18dp"
+        android:layout_marginBottom="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:background="@drawable/bg_icon_circle"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="16dp">
+        <TextView
+            android:text="🔍"
+            android:textSize="16sp"
+            android:layout_marginEnd="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <TextView
-                android:text="🎯"
-                android:textSize="22sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/etSearch"
+            android:hint="Search apps..."
+            android:textColor="#FFFFFF"
+            android:textColorHint="#636366"
+            android:textSize="15sp"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- Selected Counter Card with Animation -->
+    <LinearLayout
+        android:id="@+id/counterCard"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_counter_card"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Icon with glow -->
+        <FrameLayout
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="14dp">
+
+            <View
+                android:id="@+id/iconGlow"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:alpha="0.3"
+                android:background="@drawable/bg_timer_glow" />
+
+            <FrameLayout
+                android:background="@drawable/bg_icon_circle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:text="🎯"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
         </FrameLayout>
 
         <LinearLayout
@@ -101,28 +179,105 @@
             <TextView
                 android:id="@+id/tvSelectedCount"
                 android:text="0 APPS SELECTED"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textColor="#FF9500"
                 android:textStyle="bold"
-                android:letterSpacing="0.05"
+                android:letterSpacing="0.03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/tvSelectionHint"
                 android:text="Tap apps below to select"
                 android:textSize="13sp"
                 android:textColor="#8E8E93"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- Animated indicator -->
-        <View
-            android:layout_width="8dp"
-            android:layout_height="8dp"
-            android:background="@drawable/bg_circle_focus_enhanced"
-            android:alpha="0.8" />
+        <!-- Select All Button -->
+        <TextView
+            android:id="@+id/btnSelectAll"
+            android:text="Select All"
+            android:textSize="12sp"
+            android:textColor="#FF9500"
+            android:textStyle="bold"
+            android:background="@drawable/bg_badge_orange"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- Category Tabs -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tabAll"
+            android:text="All"
+            android:textSize="13sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:background="@drawable/bg_button_gradient_primary"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tabSocial"
+            android:text="Social"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_duration_button"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tabGames"
+            android:text="Games"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_duration_button"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tabMedia"
+            android:text="Media"
+            android:textSize="13sp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_duration_button"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <!-- Apps List -->
@@ -133,7 +288,8 @@
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:scrollbars="none"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:id="@+id/listContainer"
@@ -147,26 +303,38 @@
     <LinearLayout
         android:orientation="vertical"
         android:background="@drawable/bg_bottom_gradient"
-        android:paddingTop="20dp"
-        android:paddingBottom="32dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="28dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:elevation="12dp"
+        android:elevation="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <!-- Info text -->
+        <TextView
+            android:id="@+id/tvBottomInfo"
+            android:text="You can always change this later in settings"
+            android:textSize="12sp"
+            android:textColor="#636366"
+            android:gravity="center"
+            android:layout_marginBottom="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <!-- Continue Button with glow -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="12dp">
+            android:layout_height="58dp"
+            android:layout_marginBottom="10dp">
 
             <!-- Glow effect -->
             <View
+                android:id="@+id/btnGlow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="4dp"
-                android:alpha="0.4"
+                android:alpha="0.5"
                 android:background="@drawable/bg_button_glow_primary" />
 
             <LinearLayout
@@ -180,6 +348,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/tvContinueButton"
                     android:text="Continue"
                     android:textSize="17sp"
                     android:textStyle="bold"
@@ -206,7 +375,7 @@
             android:clickable="true"
             android:focusable="true"
             android:layout_width="match_parent"
-            android:layout_height="48dp">
+            android:layout_height="44dp">
 
             <TextView
                 android:text="Cancel"

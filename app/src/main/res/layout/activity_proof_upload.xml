@@ -234,21 +234,6 @@
         </RelativeLayout>
 
         <!-- Empty state icon -->
-        <FrameLayout
-            android:id="@+id/emptyStateContainer"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/bg_icon_circle">
-
-            <TextView
-                android:id="@+id/tvEmptyCamera"
-                android:text="📸"
-                android:textSize="40sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
     </RelativeLayout>
 
     <!-- Result Text -->
