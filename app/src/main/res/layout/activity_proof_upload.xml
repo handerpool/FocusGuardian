@@ -5,49 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:paddingTop="60dp"
+    <!-- Header with gradient accent -->
+    <RelativeLayout
+        android:paddingTop="48dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:paddingBottom="24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Background gradient overlay -->
+        <View
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="-40dp"
+            android:layout_marginEnd="-40dp"
+            android:alpha="0.15"
+            android:background="@drawable/bg_circle_focus_enhanced" />
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="TIME TO SHOW\nSOME EVIDENCE"
-                android:textSize="12sp"
-                android:textColor="#636366"
-                android:letterSpacing="0.15"
-                android:lineSpacingExtra="2dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- Badge -->
+                <TextView
+                    android:text="💪 TIME TO PROVE IT"
+                    android:textSize="11sp"
+                    android:textColor="#FF9500"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:background="@drawable/bg_badge_orange"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
             <TextView
-                android:text="💪"
-                android:textSize="24sp"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvInstructions"
+                android:text="Scan to unlock\ndistracting apps"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:lineSpacingExtra="6dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvInstructions"
-            android:text="Scan to unlock\ndistracting apps."
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:lineSpacingExtra="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <!-- Blocked Apps Row -->
     <LinearLayout
@@ -55,32 +71,32 @@
         android:gravity="center"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="28dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_card_premium" />
+        <FrameLayout
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_app_icon_placeholder" />
 
-        <View
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_card_premium" />
+        <FrameLayout
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_app_icon_placeholder" />
 
-        <View
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_card_premium" />
+        <FrameLayout
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_app_icon_placeholder" />
 
-        <View
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_card_premium" />
+        <FrameLayout
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_app_icon_placeholder" />
     </LinearLayout>
 
     <!-- Camera Preview / Analysis Container -->
@@ -90,8 +106,8 @@
         android:layout_weight="1"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/bg_card_premium">
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_camera_preview">
 
         <!-- Image Preview -->
         <ImageView
@@ -134,7 +150,7 @@
                 <TextView
                     android:id="@+id/tvAnalysisStatus"
                     android:text="Analyzing"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:layout_marginTop="24dp"
@@ -151,14 +167,14 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Corner brackets -->
+            <!-- Corner brackets with gradient -->
             <View
                 android:layout_width="60dp"
                 android:layout_height="4dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="24dp"
-                android:background="#FFFFFF" />
+                android:background="#FF9500" />
 
             <View
                 android:layout_width="4dp"
@@ -166,7 +182,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="24dp"
-                android:background="#FFFFFF" />
+                android:background="#FF9500" />
 
             <View
                 android:layout_width="60dp"
@@ -174,7 +190,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="24dp"
-                android:background="#FFFFFF" />
+                android:background="#FF9500" />
 
             <View
                 android:layout_width="4dp"
@@ -182,7 +198,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="24dp"
-                android:background="#FFFFFF" />
+                android:background="#FF9500" />
 
             <View
                 android:layout_width="60dp"
@@ -190,7 +206,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="24dp"
-                android:background="#FFFFFF" />
+                android:background="#FF9500" />
 
             <View
                 android:layout_width="4dp"
@@ -198,7 +214,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="24dp"
-                android:background="#FFFFFF" />
+                android:background="#FF9500" />
 
             <View
                 android:layout_width="60dp"
@@ -206,7 +222,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="24dp"
-                android:background="#FFFFFF" />
+                android:background="#FF9500" />
 
             <View
                 android:layout_width="4dp"
@@ -214,17 +230,25 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="24dp"
-                android:background="#FFFFFF" />
+                android:background="#FF9500" />
         </RelativeLayout>
 
         <!-- Empty state icon -->
-        <TextView
-            android:id="@+id/tvEmptyCamera"
-            android:text="📸"
-            android:textSize="64sp"
+        <FrameLayout
+            android:id="@+id/emptyStateContainer"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/bg_icon_circle">
+
+            <TextView
+                android:id="@+id/tvEmptyCamera"
+                android:text="📸"
+                android:textSize="40sp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
     </RelativeLayout>
 
     <!-- Result Text -->
@@ -233,7 +257,7 @@
         android:text=""
         android:textSize="13sp"
         android:textColor="#8E8E93"
-        android:background="#1C1C1E"
+        android:background="@drawable/bg_counter_card"
         android:padding="16dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
@@ -242,15 +266,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <!-- Bottom Actions -->
+    <!-- Bottom Actions with gradient -->
     <LinearLayout
         android:orientation="vertical"
-        android:background="#0A0A0A"
+        android:background="@drawable/bg_bottom_gradient"
         android:paddingTop="20dp"
         android:paddingBottom="32dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:elevation="8dp"
+        android:elevation="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -262,25 +286,39 @@
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:textAllCaps="false"
-            android:background="@drawable/bg_button_secondary"
+            android:background="@drawable/bg_button_secondary_enhanced"
             android:layout_marginBottom="12dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp" />
+            android:layout_height="56dp" />
 
-        <!-- Submit Button -->
-        <Button
-            android:id="@+id/btnSubmitProof"
-            android:text="✓ Submit Proof"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:textAllCaps="false"
-            android:background="@drawable/bg_button_primary"
-            android:enabled="false"
-            android:alpha="0.5"
-            android:layout_marginBottom="12dp"
+        <!-- Submit Button with glow -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="64dp" />
+            android:layout_height="60dp"
+            android:layout_marginBottom="12dp">
+
+            <!-- Glow effect -->
+            <View
+                android:id="@+id/submitGlow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:alpha="0.4"
+                android:background="@drawable/bg_button_glow_primary" />
+
+            <Button
+                android:id="@+id/btnSubmitProof"
+                android:text="✓ Submit Proof"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_gradient_primary"
+                android:enabled="false"
+                android:alpha="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
 
         <!-- Skip Button -->
         <Button

@@ -9,8 +9,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="60dp"
         android:paddingBottom="32dp">
+
+        <!-- Status Bar Spacer -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
 
         <!-- Header Section -->
         <LinearLayout
@@ -19,74 +23,103 @@
             android:layout_height="wrap_content"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
-            android:paddingBottom="32dp">
+            android:paddingBottom="24dp">
 
-            <!-- Top Bar with User Info and Logout -->
+            <!-- Top Bar with Logo and Logout -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:text="FocusGuardian"
-                    android:textSize="14sp"
-                    android:textColor="#8E8E93"
-                    android:letterSpacing="0.15"
-                    android:textAllCaps="true"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
+                <!-- Logo Badge -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_card_gradient"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
+                    <TextView
+                        android:text="🛡️"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="FOCUSGUARDIAN"
+                        android:textSize="11sp"
+                        android:textColor="#8E8E93"
+                        android:letterSpacing="0.15"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Logout Button -->
                 <LinearLayout
                     android:id="@+id/btnLogout"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:background="@drawable/bg_button_secondary"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/bg_button_secondary_enhanced"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="🚪"
+                        android:text="👋"
                         android:textSize="14sp"
-                        android:layout_marginEnd="4dp"
+                        android:layout_marginEnd="6dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <TextView
                         android:text="Logout"
-                        android:textSize="12sp"
+                        android:textSize="13sp"
                         android:textColor="#FFFFFF"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- User Name -->
+            <!-- User Greeting -->
             <TextView
                 android:id="@+id/tvUserName"
                 android:text=""
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textColor="#FF9500"
+                android:textStyle="bold"
                 android:visibility="gone"
                 android:layout_marginBottom="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <!-- Main Title -->
             <TextView
                 android:id="@+id/tvWelcome"
                 android:text="Earn your\nscreen time."
-                android:textSize="36sp"
+                android:textSize="38sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:lineSpacingExtra="4dp"
+                android:lineSpacingExtra="6dp"
+                android:letterSpacing="-0.02"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -94,15 +127,16 @@
         <!-- Focus Circle Container -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:layout_marginBottom="32dp">
+            android:layout_height="320dp"
+            android:layout_marginBottom="24dp">
 
-            <!-- Concentric Circles Background -->
+            <!-- Enhanced Concentric Circles Background -->
             <View
-                android:layout_width="280dp"
-                android:layout_height="280dp"
+                android:id="@+id/focusCircleBg"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/bg_circle_focus" />
+                android:background="@drawable/bg_circle_focus_enhanced" />
 
             <!-- Center Content -->
             <LinearLayout
@@ -116,93 +150,115 @@
                 <TextView
                     android:id="@+id/tvFocusEmoji"
                     android:text="💪"
-                    android:textSize="72sp"
-                    android:layout_marginBottom="16dp"
+                    android:textSize="64sp"
+                    android:layout_marginBottom="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <!-- Status Text -->
                 <TextView
                     android:id="@+id/tvFocusStatus"
-                    android:text="Tap to Complete"
-                    android:textSize="14sp"
+                    android:text="Ready to Focus"
+                    android:textSize="15sp"
                     android:textColor="#8E8E93"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-
-            <!-- Corner brackets (optional decoration) -->
-            <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="-100dp"
-                android:layout_marginTop="-100dp"
-                android:background="#22FFFFFF" />
         </RelativeLayout>
 
-        <!-- Activity Card -->
+        <!-- Stats Card -->
         <LinearLayout
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_premium"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_card_gradient"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="20dp"
             android:padding="20dp"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Title Row -->
+            <!-- Focus Session Info -->
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:text="💪 "
-                    android:textSize="20sp"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="⚡"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="Focus Session"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
                 <TextView
-                    android:text="Focus Session"
-                    android:textSize="18sp"
+                    android:text="APPS TO BLOCK"
+                    android:textSize="10sp"
+                    android:textColor="#636366"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/tvSessionDuration"
-                    android:text="25m"
+                    android:id="@+id/tvSelectedApps"
+                    android:text="No apps selected yet"
                     android:textSize="14sp"
-                    android:textColor="#FF9500"
-                    android:background="#33FF9500"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:layout_width="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <TextView
-                android:text="Today's one thing"
-                android:textSize="12sp"
-                android:textColor="#636366"
-                android:layout_marginBottom="4dp"
+            <!-- Duration Badge -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_badge_orange"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_marginStart="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvSelectedApps"
-                android:text="No apps selected yet"
-                android:textSize="14sp"
-                android:textColor="#FFFFFF"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvSessionDuration"
+                    android:text="25"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF9500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="min"
+                    android:textSize="11sp"
+                    android:textColor="#FF9500"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
 
         <!-- Action Buttons -->
@@ -217,36 +273,58 @@
             <LinearLayout
                 android:id="@+id/btnSelectApps"
                 android:orientation="horizontal"
-                android:background="@drawable/bg_button_secondary"
-                android:gravity="center"
+                android:background="@drawable/bg_button_secondary_enhanced"
+                android:gravity="center_vertical"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="68dp">
 
-                <TextView
-                    android:text="📱"
-                    android:textSize="24sp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <!-- Icon Container -->
+                <FrameLayout
+                    android:background="@drawable/bg_icon_circle"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp">
+                    <TextView
+                        android:text="📱"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
 
-                <TextView
-                    android:text="Select Apps to Block"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Select Apps to Block"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="Choose distracting apps"
+                        android:textSize="12sp"
+                        android:textColor="#636366"
+                        android:layout_marginTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
                 <TextView
                     android:text="→"
-                    android:textSize="20sp"
-                    android:textColor="#8E8E93"
+                    android:textSize="22sp"
+                    android:textColor="#FF9500"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -255,43 +333,62 @@
             <LinearLayout
                 android:id="@+id/btnStartFocus"
                 android:orientation="horizontal"
-                android:background="@drawable/bg_button_primary"
+                android:background="@drawable/bg_button_primary_enhanced"
                 android:gravity="center"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:elevation="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="64dp">
+                android:layout_height="72dp">
 
                 <TextView
                     android:text="⚡"
-                    android:textSize="28sp"
+                    android:textSize="26sp"
                     android:layout_marginEnd="12dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tvStartButtonText"
-                    android:text="Start Focus"
+                    android:text="Start Focus Session"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="#000000"
+                    android:letterSpacing="0.02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Bottom Tip -->
-        <TextView
-            android:text="💡 Complete your daily task to unlock apps"
-            android:textSize="13sp"
-            android:textColor="#636366"
-            android:gravity="center"
+        <!-- Bottom Tip Card -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:background="@drawable/bg_card_gradient"
             android:layout_marginTop="24dp"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:padding="16dp"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="💡"
+                android:textSize="20sp"
+                android:layout_marginEnd="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="Complete your focus task to unlock blocked apps"
+                android:textSize="13sp"
+                android:textColor="#8E8E93"
+                android:lineSpacingExtra="2dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

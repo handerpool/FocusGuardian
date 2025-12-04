@@ -5,42 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:paddingTop="60dp"
+    <!-- Header with gradient accent -->
+    <RelativeLayout
+        android:paddingTop="48dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="SETUP YOUR SESSION"
-            android:textSize="12sp"
-            android:textColor="#636366"
-            android:letterSpacing="0.15"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!-- Background gradient overlay -->
+        <View
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="-40dp"
+            android:layout_marginEnd="-40dp"
+            android:alpha="0.15"
+            android:background="@drawable/bg_circle_focus_enhanced" />
 
-        <TextView
-            android:text="Start Your\nFocus Session"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:lineSpacingExtra="4dp"
-            android:layout_marginBottom="8dp"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:text="Choose what you'll focus on and how long"
-            android:textSize="14sp"
-            android:textColor="#8E8E93"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            <!-- Badge -->
+            <TextView
+                android:text="⚡ SETUP YOUR SESSION"
+                android:textSize="11sp"
+                android:textColor="#FF9500"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:background="@drawable/bg_badge_orange"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="Start Your\nFocus Session"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:lineSpacingExtra="6dp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="Choose what you'll focus on and for how long"
+                android:textSize="15sp"
+                android:textColor="#8E8E93"
+                android:lineSpacingExtra="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,95 +72,48 @@
         android:layout_weight="1"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="24dp">
 
             <!-- Focus Type Section -->
-            <TextView
-                android:text="FOCUS TYPE"
-                android:textSize="12sp"
-                android:textColor="#636366"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/btnCoding"
-                android:text="💻 Coding"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
-                android:gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:layout_marginBottom="12dp"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/btnStudying"
-                android:text="📚 Studying"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
-                android:gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:layout_marginBottom="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <FrameLayout
+                    android:background="@drawable/bg_icon_circle"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="12dp">
 
-            <Button
-                android:id="@+id/btnCooking"
-                android:text="🍳 Cooking"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
-                android:gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:layout_marginBottom="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    <TextView
+                        android:text="🎯"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
 
-            <Button
-                android:id="@+id/btnTraining"
-                android:text="🏋️ Training"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
-                android:gravity="center"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:layout_marginBottom="32dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <TextView
+                    android:text="FOCUS TYPE"
+                    android:textSize="12sp"
+                    android:textColor="#8E8E93"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-            <!-- Duration Section -->
-            <TextView
-                android:text="SESSION DURATION"
-                android:textSize="12sp"
-                android:textColor="#636366"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                android:layout_marginBottom="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+            <!-- Focus Type Options Grid -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -144,42 +121,35 @@
                 android:layout_marginBottom="12dp">
 
                 <Button
-                    android:id="@+id/btn15min"
-                    android:text="15m"
-                    android:textSize="16sp"
+                    android:id="@+id/btnCoding"
+                    android:text="💻 Coding"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:textAllCaps="false"
-                    android:background="@drawable/bg_button_secondary"
+                    android:background="@drawable/bg_option_button"
+                    android:gravity="center"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="54dp"
-                    android:layout_marginEnd="8dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp" />
 
                 <Button
-                    android:id="@+id/btn25min"
-                    android:text="25m"
-                    android:textSize="16sp"
+                    android:id="@+id/btnStudying"
+                    android:text="📚 Study"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:textAllCaps="false"
-                    android:background="@drawable/bg_button_secondary"
+                    android:background="@drawable/bg_option_button"
+                    android:gravity="center"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="54dp"
-                    android:layout_marginEnd="8dp" />
-
-                <Button
-                    android:id="@+id/btn45min"
-                    android:text="45m"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:textAllCaps="false"
-                    android:background="@drawable/bg_button_secondary"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="54dp" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
@@ -189,76 +159,206 @@
                 android:layout_marginBottom="32dp">
 
                 <Button
-                    android:id="@+id/btn60min"
-                    android:text="1h"
-                    android:textSize="16sp"
+                    android:id="@+id/btnCooking"
+                    android:text="🍳 Cooking"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:textAllCaps="false"
-                    android:background="@drawable/bg_button_secondary"
+                    android:background="@drawable/bg_option_button"
+                    android:gravity="center"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="54dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp" />
+
+                <Button
+                    android:id="@+id/btnTraining"
+                    android:text="🏋️ Training"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textAllCaps="false"
+                    android:background="@drawable/bg_option_button"
+                    android:gravity="center"
+                    android:paddingTop="18dp"
+                    android:paddingBottom="18dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Duration Section -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:background="@drawable/bg_icon_circle"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="12dp">
+
+                    <TextView
+                        android:text="⏱️"
+                        android:textSize="14sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+
+                <TextView
+                    android:text="SESSION DURATION"
+                    android:textSize="12sp"
+                    android:textColor="#8E8E93"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Duration Options -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <Button
+                    android:id="@+id/btn15min"
+                    android:text="15m"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textAllCaps="false"
+                    android:background="@drawable/bg_duration_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/btn25min"
+                    android:text="25m"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textAllCaps="false"
+                    android:background="@drawable/bg_duration_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/btn45min"
+                    android:text="45m"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textAllCaps="false"
+                    android:background="@drawable/bg_duration_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="52dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp">
+
+                <Button
+                    android:id="@+id/btn60min"
+                    android:text="1h"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textAllCaps="false"
+                    android:background="@drawable/bg_duration_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="52dp"
                     android:layout_marginEnd="8dp" />
 
                 <Button
                     android:id="@+id/btn90min"
                     android:text="1.5h"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:textAllCaps="false"
-                    android:background="@drawable/bg_button_secondary"
+                    android:background="@drawable/bg_duration_button"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="54dp"
+                    android:layout_height="52dp"
                     android:layout_marginEnd="8dp" />
 
                 <Button
                     android:id="@+id/btn120min"
                     android:text="2h"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:textAllCaps="false"
-                    android:background="@drawable/bg_button_secondary"
+                    android:background="@drawable/bg_duration_button"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="54dp" />
+                    android:layout_height="52dp" />
             </LinearLayout>
 
-            <!-- Selected Info Card -->
+            <!-- Selected Session Info Card -->
             <LinearLayout
                 android:orientation="vertical"
-                android:background="#1C1C1E"
+                android:background="@drawable/bg_session_card"
                 android:padding="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:text="YOUR SESSION"
-                    android:textSize="10sp"
-                    android:textColor="#636366"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.1"
-                    android:layout_marginBottom="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="✨"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="YOUR SESSION"
+                        android:textSize="11sp"
+                        android:textColor="#FF9500"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvSelectedFocus"
                     android:text="💻 Coding"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tvSelectedDuration"
-                    android:text="25 minutes"
+                    android:text="25 minutes of focused work"
                     android:textSize="14sp"
                     android:textColor="#8E8E93"
                     android:layout_width="match_parent"
@@ -267,27 +367,40 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Action -->
+    <!-- Bottom Action with gradient -->
     <LinearLayout
         android:orientation="vertical"
-        android:background="#0A0A0A"
+        android:background="@drawable/bg_bottom_gradient"
         android:paddingTop="20dp"
         android:paddingBottom="32dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:elevation="8dp"
+        android:elevation="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btnStartSession"
-            android:text="🔥 Start Focus Session"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:textAllCaps="false"
-            android:background="@drawable/bg_button_primary"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="64dp" />
+            android:layout_height="60dp">
+
+            <!-- Glow effect -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:alpha="0.4"
+                android:background="@drawable/bg_button_glow_primary" />
+
+            <Button
+                android:id="@+id/btnStartSession"
+                android:text="🔥 Start Focus Session"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_gradient_primary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

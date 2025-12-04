@@ -25,7 +25,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etDisplayName, etEmail, etPassword, etConfirmPassword;
     private Button btnRegister;
-    private TextView tvError, tvLogin, btnBack;
+    private TextView tvError, tvLogin;
+    private View btnBack;
     private ProgressBar progressBar;
     private AuthRepository authRepository;
 

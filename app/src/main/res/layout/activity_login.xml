@@ -15,14 +15,14 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:paddingTop="80dp"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
+            android:paddingTop="60dp"
+            android:paddingStart="28dp"
+            android:paddingEnd="28dp"
             android:paddingBottom="32dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Logo Section -->
+            <!-- Logo Section with enhanced styling -->
             <LinearLayout
                 android:orientation="vertical"
                 android:gravity="center"
@@ -30,25 +30,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:text="🛡️"
-                    android:textSize="64sp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <!-- Logo Circle -->
+                <FrameLayout
+                    android:background="@drawable/bg_circle_focus_enhanced"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginBottom="24dp">
+
+                    <TextView
+                        android:text="🛡️"
+                        android:textSize="56sp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
 
                 <TextView
                     android:text="FocusGuardian"
-                    android:textSize="28sp"
+                    android:textSize="32sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
+                    android:letterSpacing="-0.02"
                     android:layout_marginBottom="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:text="Welcome back! Login to continue"
-                    android:textSize="14sp"
+                    android:textSize="15sp"
                     android:textColor="#8E8E93"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -56,10 +65,12 @@
 
             <!-- Email Input -->
             <TextView
-                android:text="Email"
-                android:textSize="14sp"
-                android:textColor="#8E8E93"
-                android:layout_marginBottom="8dp"
+                android:text="EMAIL"
+                android:textSize="12sp"
+                android:textColor="#636366"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -70,18 +81,23 @@
                 android:textColorHint="#636366"
                 android:textSize="16sp"
                 android:inputType="textEmailAddress"
-                android:background="@drawable/bg_input_selector"
-                android:padding="16dp"
+                android:background="@drawable/bg_input_enhanced_selector"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="56dp" />
+                android:layout_height="60dp" />
 
             <!-- Password Input -->
             <TextView
-                android:text="Password"
-                android:textSize="14sp"
-                android:textColor="#8E8E93"
-                android:layout_marginBottom="8dp"
+                android:text="PASSWORD"
+                android:textSize="12sp"
+                android:textColor="#636366"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -92,19 +108,25 @@
                 android:textColorHint="#636366"
                 android:textSize="16sp"
                 android:inputType="textPassword"
-                android:background="@drawable/bg_input_selector"
-                android:padding="16dp"
+                android:background="@drawable/bg_input_enhanced_selector"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
                 android:layout_marginBottom="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="56dp" />
+                android:layout_height="60dp" />
 
             <!-- Forgot Password -->
             <TextView
                 android:id="@+id/tvForgotPassword"
                 android:text="Forgot password?"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 android:textColor="#FF9500"
                 android:layout_gravity="end"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
                 android:layout_marginBottom="32dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -116,6 +138,8 @@
                 android:textColor="#FF3B30"
                 android:visibility="gone"
                 android:gravity="center"
+                android:background="@drawable/bg_card_gradient"
+                android:padding="12dp"
                 android:layout_marginBottom="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -128,10 +152,11 @@
                 android:textStyle="bold"
                 android:textColor="#000000"
                 android:textAllCaps="false"
-                android:background="@drawable/bg_button_primary"
+                android:background="@drawable/bg_button_primary_enhanced"
+                android:elevation="8dp"
                 android:layout_marginBottom="24dp"
                 android:layout_width="match_parent"
-                android:layout_height="56dp" />
+                android:layout_height="60dp" />
 
             <!-- Loading Indicator -->
             <ProgressBar
@@ -158,9 +183,11 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:text="  or  "
-                    android:textSize="14sp"
+                    android:text="  OR  "
+                    android:textSize="12sp"
                     android:textColor="#636366"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -175,6 +202,8 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center"
+                android:background="@drawable/bg_card_gradient"
+                android:padding="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
