@@ -9,4 +9,8 @@
     <string name="submit_proof">Submit Proof</string>
     <string name="take_photo_camera">Take Photo (Camera)</string>
     <string name="submit_proof_end_session"><![CDATA[Submit Proof & End Session]]></string>
+    <string name="earn_screen_time">Earn your\nscreen time.</string>
+    <string name="double_arrow">↔</string>
+    <string name="tap_to_complete">Tap to Complete</string>
+    <string name="focus_session">Focus Session</string>
 </resources>

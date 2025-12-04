@@ -3,16 +3,16 @@ package com.example.focusguardian.view;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.widget.Button;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.focusguardian.R;
 
@@ -21,22 +21,18 @@ import java.util.Set;
 
 public class SelectAppsActivity extends AppCompatActivity {
 
-    private LinearLayout listContainer;
-    private Button btnSave, btnCancel;
+    private LinearLayout listContainer, btnSave, btnCancel;
     private TextView tvSelectedCount;
     private SharedPreferences prefs;
+    private int selectedCount = 0;
 
-    // Demo package names with display names and category colors
-    private static final String[][] DEMO_APPS = new String[][]{
-            {"com.facebook.katana", "Facebook", "#4267B2"},
-            {"com.instagram.android", "Instagram", "#E1306C"},
-            {"com.apple.messages", "Messages", "#34C759"},
-            {"com.facebook.orca", "Messenger", "#0084FF"},
-            {"com.zhiliaoapp.musically", "TikTok", "#000000"},
-            {"com.twitter.android", "X", "#FFFFFF"},
-            {"com.whatsapp", "WhatsApp", "#25D366"},
-            {"com.discord", "Discord", "#5865F2"},
-            {"com.linkedin.android", "LinkedIn", "#0A66C2"}
+    private static final String[][] APPS = new String[][]{
+            {"📷", "Instagram", "com.instagram.android", "#E4405F"},
+            {"🎵", "TikTok", "com.zhiliaoapp.musically", "#000000"},
+            {"📘", "Facebook", "com.facebook.katana", "#1877F2"},
+            {"▶️", "YouTube", "com.google.android.youtube", "#FF0000"},
+            {"👻", "Snapchat", "com.snapchat.android", "#FFFC00"},
+            {"🔴", "Reddit", "com.reddit.frontpage", "#FF4500"}
     };
 
     @SuppressLint("SetTextI18n")
@@ -49,13 +45,14 @@ public class SelectAppsActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSaveApps);
         btnCancel = findViewById(R.id.btnCancel);
         tvSelectedCount = findViewById(R.id.tvSelectedCount);
-        prefs = getSharedPreferences("fg_prefs", MODE_PRIVATE);
 
+        prefs = getSharedPreferences("fg_prefs", MODE_PRIVATE);
         Set<String> saved = prefs.getStringSet("blocked_set", new HashSet<>());
 
-        for (String[] appData : DEMO_APPS) {
-            LinearLayout itemLayout = createAppItem(appData, saved.contains(appData[0]));
-            listContainer.addView(itemLayout);
+        // Create app items
+        for (String[] app : APPS) {
+            LinearLayout appItem = createAppItem(app[0], app[1], app[2], app[3], saved.contains(app[2]));
+            listContainer.addView(appItem);
         }
 
         updateSelectedCount();
@@ -63,11 +60,12 @@ public class SelectAppsActivity extends AppCompatActivity {
         btnSave.setOnClickListener(v -> {
             Set<String> set = new HashSet<>();
             for (int i = 0; i < listContainer.getChildCount(); i++) {
-                LinearLayout itemLayout = (LinearLayout) listContainer.getChildAt(i);
-                // Find the CheckBox - it's the last child in the layout
-                CheckBox cb = (CheckBox) itemLayout.getChildAt(2);
-                if (cb != null && cb.isChecked()) {
-                    set.add((String) cb.getTag());
+                View child = listContainer.getChildAt(i);
+                if (child instanceof LinearLayout) {
+                    CheckBox cb = (CheckBox) ((LinearLayout) child).getChildAt(2);
+                    if (cb.isChecked()) {
+                        set.add((String) cb.getTag());
+                    }
                 }
             }
             prefs.edit().putStringSet("blocked_set", set).apply();
@@ -78,71 +76,68 @@ public class SelectAppsActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private LinearLayout createAppItem(String[] appData, boolean isChecked) {
-        LinearLayout container = new LinearLayout(this);
-        container.setOrientation(LinearLayout.HORIZONTAL);
-        container.setGravity(Gravity.CENTER_VERTICAL);
-        container.setPadding(24, 20, 24, 20);
-        container.setBackgroundResource(R.drawable.app_item_bg);
+    private LinearLayout createAppItem(String emoji, String name, String pkg, String colorHex, boolean isChecked) {
+        LinearLayout itemLayout = new LinearLayout(this);
+        itemLayout.setOrientation(LinearLayout.HORIZONTAL);
+        itemLayout.setGravity(Gravity.CENTER_VERTICAL);
+        itemLayout.setPadding(24, 20, 24, 20);
+        itemLayout.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.bg_app_item, null));
 
-        LinearLayout.LayoutParams containerParams = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        containerParams.setMargins(0, 0, 0, 16);
-        container.setLayoutParams(containerParams);
+        params.setMargins(0, 0, 0, 16);
+        itemLayout.setLayoutParams(params);
 
         // Icon circle
         TextView iconView = new TextView(this);
-        GradientDrawable iconBg = new GradientDrawable();
-        iconBg.setShape(GradientDrawable.OVAL);
-        iconBg.setColor(Color.parseColor(appData[2]));
-        iconView.setBackground(iconBg);
+        iconView.setText(emoji);
+        iconView.setTextSize(32);
         iconView.setGravity(Gravity.CENTER);
-        iconView.setTextSize(16);
-        iconView.setTextColor(appData[2].equals("#FFFFFF") || appData[2].equals("#000000")
-                ? Color.parseColor("#808080") : Color.WHITE);
-        iconView.setText(appData[1].substring(0, 1));
-
-        LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(48, 48);
-        iconParams.setMargins(0, 0, 20, 0);
+        LinearLayout.LayoutParams iconParams = new LinearLayout.LayoutParams(64, 64);
+        iconParams.setMarginEnd(16);
         iconView.setLayoutParams(iconParams);
 
         // App name
         TextView nameView = new TextView(this);
-        nameView.setText(appData[1]);
-        nameView.setTextSize(16);
+        nameView.setText(name);
+        nameView.setTextSize(17);
         nameView.setTextColor(Color.WHITE);
+        nameView.setTypeface(null, Typeface.BOLD);
         LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1f
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
         );
         nameView.setLayoutParams(nameParams);
 
         // Checkbox
         CheckBox checkBox = new CheckBox(this);
-        checkBox.setTag(appData[0]); // Store package name
+        checkBox.setTag(pkg);
         checkBox.setChecked(isChecked);
-        checkBox.setButtonTintList(ContextCompat.getColorStateList(this, R.color.checkbox_tint));
-        checkBox.setOnCheckedChangeListener((buttonView, checked) -> updateSelectedCount());
+        checkBox.setButtonDrawable(null);
+        checkBox.setBackground(ResourcesCompat.getDrawable(getResources(),
+                android.R.drawable.checkbox_on_background, null));
+        checkBox.setScaleX(1.3f);
+        checkBox.setScaleY(1.3f);
 
-        container.addView(iconView);
-        container.addView(nameView);
-        container.addView(checkBox);
+        checkBox.setOnCheckedChangeListener((buttonView, checked) -> {
+            if (checked) selectedCount++;
+            else selectedCount--;
+            updateSelectedCount();
+        });
 
-        return container;
+        itemLayout.addView(iconView);
+        itemLayout.addView(nameView);
+        itemLayout.addView(checkBox);
+
+        // Update initial count
+        if (isChecked) selectedCount++;
+
+        return itemLayout;
     }
 
     @SuppressLint("SetTextI18n")
     private void updateSelectedCount() {
-        int count = 0;
-        for (int i = 0; i < listContainer.getChildCount(); i++) {
-            LinearLayout itemLayout = (LinearLayout) listContainer.getChildAt(i);
-            // CheckBox is the last child (index 2)
-            CheckBox cb = (CheckBox) itemLayout.getChildAt(2);
-            if (cb != null && cb.isChecked()) count++;
-        }
-        tvSelectedCount.setText(count + " apps selected");
+        tvSelectedCount.setText(selectedCount + " APPS SELECTED");
     }
 }

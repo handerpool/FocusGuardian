@@ -1,5 +1,6 @@
 package com.example.focusguardian.service;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -59,7 +60,9 @@ public class AppMonitorService extends Service {
                     if (foregroundApp != null) {
                         if (isBlocked(foregroundApp)) {
                             if (!OverlayBlocker.isShown()) {
-                                OverlayBlocker.showOverlay(getApplicationContext(), foregroundApp);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    OverlayBlocker.showOverlay(getApplicationContext(), foregroundApp);
+                                }
                                 Log.d("FocusGuardian", "Overlay shown for: " + foregroundApp);
                             }
                         } else {
@@ -128,6 +131,18 @@ public class AppMonitorService extends Service {
         isRunning = false;
         Log.d("AppMonitorService", "Service destroyed");
     }
+    public static boolean isServiceRunning(Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (manager == null) return false;
+
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (AppMonitorService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public IBinder onBind(Intent intent) {

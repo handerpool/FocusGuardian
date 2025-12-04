@@ -46,4 +46,9 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.mlkit:image-labeling:17.0.8")
+    implementation("com.google.android.material:material:1.8.0")
+    // ViewPager2 for onboarding
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+// Material Components (if not already added)
+    implementation("com.google.android.material:material:1.9.0")
 }

@@ -1,25 +1,30 @@
 package com.example.focusguardian.view;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.focusguardian.R;
+import com.example.focusguardian.service.AppMonitorService;
 
 public class SelectFocusTypeActivity extends AppCompatActivity {
 
-    private RadioGroup radioGroup;
-    private RadioGroup durationGroup;
-    private Button btnStartFocus, btnCancel;
-    private TextView tvTitle;
+    private Button btnCoding, btnStudying, btnCooking, btnTraining;
+    private Button btn15min, btn25min, btn45min, btn60min, btn90min, btn120min;
+    private Button btnStartSession;
+    private TextView tvSelectedFocus, tvSelectedDuration;
+
+    private Button selectedFocusButton;
+    private Button selectedDurationButton;
+
+    private String selectedFocusType = "coding";
+    private int selectedDurationMinutes = 25;
+
     private SharedPreferences prefs;
 
     @Override
@@ -29,87 +34,105 @@ public class SelectFocusTypeActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("fg_prefs", MODE_PRIVATE);
 
-        tvTitle = findViewById(R.id.tvTitle);
-        radioGroup = findViewById(R.id.radioGroup);
-        durationGroup = findViewById(R.id.radioDuration);
-        btnStartFocus = findViewById(R.id.btnStartFocus);
-        btnCancel = findViewById(R.id.btnCancel);
+        // Initialize focus type buttons
+        btnCoding = findViewById(R.id.btnCoding);
+        btnStudying = findViewById(R.id.btnStudying);
+        btnCooking = findViewById(R.id.btnCooking);
+        btnTraining = findViewById(R.id.btnTraining);
 
-        // Restore previously selected radio buttons
-        restoreSelections();
+        // Initialize duration buttons
+        btn15min = findViewById(R.id.btn15min);
+        btn25min = findViewById(R.id.btn25min);
+        btn45min = findViewById(R.id.btn45min);
+        btn60min = findViewById(R.id.btn60min);
+        btn90min = findViewById(R.id.btn90min);
+        btn120min = findViewById(R.id.btn120min);
 
-        btnStartFocus.setOnClickListener(v -> {
-            int selectedId = radioGroup.getCheckedRadioButtonId();
-            if (selectedId == -1) {
-                Toast.makeText(this, "Please select your focus type", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        // Initialize other views
+        btnStartSession = findViewById(R.id.btnStartSession);
+        tvSelectedFocus = findViewById(R.id.tvSelectedFocus);
+        tvSelectedDuration = findViewById(R.id.tvSelectedDuration);
 
-            int selectedDurationId = durationGroup.getCheckedRadioButtonId();
-            if (selectedDurationId == -1) {
-                Toast.makeText(this, "Please select session duration", Toast.LENGTH_SHORT).show();
-                return;
-            }
+        // Set default selections
+        selectedFocusButton = btnCoding;
+        selectedDurationButton = btn25min;
+        highlightButton(btnCoding);
+        highlightButton(btn25min);
 
-            RadioButton selected = findViewById(selectedId);
-            RadioButton selectedDuration = findViewById(selectedDurationId);
+        // Setup click listeners for focus types
+        btnCoding.setOnClickListener(v -> selectFocusType(btnCoding, "💻 Coding", "coding"));
+        btnStudying.setOnClickListener(v -> selectFocusType(btnStudying, "📚 Studying", "studying"));
+        btnCooking.setOnClickListener(v -> selectFocusType(btnCooking, "🍳 Cooking", "cooking"));
+        btnTraining.setOnClickListener(v -> selectFocusType(btnTraining, "🏋️ Training", "training"));
 
-            String focusType = selected.getText().toString().toLowerCase();
-            int durationMinutes = Integer.parseInt(selectedDuration.getText().toString().replaceAll("\\D", ""));
+        // Setup click listeners for durations
+        btn15min.setOnClickListener(v -> selectDuration(btn15min, 15, "15 minutes"));
+        btn25min.setOnClickListener(v -> selectDuration(btn25min, 25, "25 minutes"));
+        btn45min.setOnClickListener(v -> selectDuration(btn45min, 45, "45 minutes"));
+        btn60min.setOnClickListener(v -> selectDuration(btn60min, 60, "1 hour"));
+        btn90min.setOnClickListener(v -> selectDuration(btn90min, 90, "1.5 hours"));
+        btn120min.setOnClickListener(v -> selectDuration(btn120min, 120, "2 hours"));
 
-            // Confirm before starting
-            new AlertDialog.Builder(this)
-                    .setTitle("Start Focus?")
-                    .setMessage("Start a " + durationMinutes + " min " + focusType + " session?")
-                    .setPositiveButton("Start", (dialog, which) -> startFocus(focusType, durationMinutes))
-                    .setNegativeButton("Cancel", null)
-                    .show();
-        });
-
-        btnCancel.setOnClickListener(v -> finish());
+        // Start session button
+        btnStartSession.setOnClickListener(v -> startFocusSession());
     }
 
-    private void restoreSelections() {
-        String savedFocus = prefs.getString("focus_type", "");
-        int savedDuration = prefs.getInt("focus_duration", 0);
-
-        if (!savedFocus.isEmpty()) {
-            for (int i = 0; i < radioGroup.getChildCount(); i++) {
-                RadioButton rb = (RadioButton) radioGroup.getChildAt(i);
-                if (rb.getText().toString().equalsIgnoreCase(savedFocus)) {
-                    rb.setChecked(true);
-                    break;
-                }
-            }
+    private void selectFocusType(Button button, String displayText, String focusType) {
+        // Deselect previous button
+        if (selectedFocusButton != null) {
+            selectedFocusButton.setBackgroundResource(R.drawable.bg_button_secondary);
+            selectedFocusButton.setTextColor(Color.WHITE);
         }
 
-        if (savedDuration != 0) {
-            for (int i = 0; i < durationGroup.getChildCount(); i++) {
-                RadioButton rb = (RadioButton) durationGroup.getChildAt(i);
-                if (Integer.parseInt(rb.getText().toString().replaceAll("\\D", "")) == savedDuration) {
-                    rb.setChecked(true);
-                    break;
-                }
-            }
-        }
+        // Select new button
+        selectedFocusButton = button;
+        highlightButton(button);
+
+        // Update display
+        selectedFocusType = focusType;
+        tvSelectedFocus.setText(displayText);
     }
 
-    private void startFocus(String focusType, int durationMinutes) {
-        // Save selections
-        prefs.edit()
-                .putString("focus_type", focusType)
-                .putInt("focus_duration", durationMinutes)
-                .apply();
+    private void selectDuration(Button button, int minutes, String displayText) {
+        // Deselect previous button
+        if (selectedDurationButton != null) {
+            selectedDurationButton.setBackgroundResource(R.drawable.bg_button_secondary);
+            selectedDurationButton.setTextColor(Color.WHITE);
+        }
 
-        // Start MainActivity with focus intent
+        // Select new button
+        selectedDurationButton = button;
+        highlightButton(button);
+
+        // Update display
+        selectedDurationMinutes = minutes;
+        tvSelectedDuration.setText(displayText);
+    }
+
+    private void highlightButton(Button button) {
+        button.setBackgroundResource(R.drawable.bg_button_primary);
+        button.setTextColor(Color.BLACK);
+    }
+
+    private void startFocusSession() {
+        // Save focus type to preferences
+        prefs.edit().putString("focus_type", selectedFocusType).apply();
+
+        // Start the monitoring service
+        Intent serviceIntent = new Intent(this, AppMonitorService.class);
+        serviceIntent.putExtra("duration_minutes", selectedDurationMinutes);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent);
+        } else {
+            startService(serviceIntent);
+        }
+
+        // Go back to MainActivity (which should update to show "End Focus" button)
+        prefs.edit().putBoolean("focus_active", true).apply();
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("start_focus", true);
-        intent.putExtra("focus_type", focusType);
-        intent.putExtra("duration_minutes", durationMinutes);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
-
-        Toast.makeText(this, "Focus session started on " + focusType + " for " + durationMinutes + " min", Toast.LENGTH_SHORT).show();
     }
 }

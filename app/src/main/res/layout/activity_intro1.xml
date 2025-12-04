@@ -1,71 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@android:color/black"
-    android:padding="24dp"
+    android:background="#000000"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Progress bar (top) -->
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
+    <!-- Progress Bar -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="60dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:progress="25"
-        android:max="100"
-        android:progressTint="@android:color/white"
-        android:layout_marginBottom="40dp" />
+        android:layout_height="wrap_content">
 
-    <!-- Title -->
-    <TextView
-        android:text="Hey there!"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"/>
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:progress="25"
+            android:max="100"
+            android:progressTint="#FF9500"
+            android:progressBackgroundTint="#2C2C2E"
+            android:layout_marginBottom="40dp" />
 
-    <TextView
-        android:text="What's the biggest thing holding you back from building better habits?"
-        android:textColor="#BBBBBB"
-        android:textSize="16sp"
-        android:gravity="center"
+        <!-- Header -->
+        <TextView
+            android:text="Hey there! 👋"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:layout_marginBottom="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="What's the biggest thing holding you back from building better habits?"
+            android:textColor="#8E8E93"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <!-- Options Container -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:scrollbars="none">
 
-    <!-- Options -->
-    <Button
-        android:id="@+id/btnOption1"
-        android:text="I lack motivation"
-        style="@style/SelectableOption" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnOption2"
-        android:text="I need to be more disciplined"
-        style="@style/SelectableOption" />
+            <Button
+                android:id="@+id/btnOption1"
+                android:text="😔 I lack motivation"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_secondary"
+                android:gravity="center"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btnOption3"
-        android:text="I don't have enough time"
-        style="@style/SelectableOption" />
+            <Button
+                android:id="@+id/btnOption2"
+                android:text="💪 I need to be more disciplined"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_secondary"
+                android:gravity="center"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btnOption4"
-        android:text="I scroll too much on my phone"
-        style="@style/SelectableOption" />
+            <Button
+                android:id="@+id/btnOption3"
+                android:text="⏰ I don't have enough time"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_secondary"
+                android:gravity="center"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <!-- Continue -->
-    <Button
-        android:id="@+id/btnContinue1"
-        android:text="Continue"
-        android:enabled="false"
-        android:backgroundTint="#444444"
-        android:textColor="#999999"
-        android:layout_marginTop="32dp"
+            <Button
+                android:id="@+id/btnOption4"
+                android:text="📱 I scroll too much on my phone"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_secondary"
+                android:gravity="center"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Action -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="#0A0A0A"
+        android:paddingTop="20dp"
+        android:paddingBottom="32dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:elevation="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:background="@drawable/rounded_button_disabled" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnContinue1"
+            android:text="Continue"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#636366"
+            android:textAllCaps="false"
+            android:background="@drawable/rounded_button_disabled"
+            android:enabled="false"
+            android:alpha="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="64dp" />
+    </LinearLayout>
 </LinearLayout>

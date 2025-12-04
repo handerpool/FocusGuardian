@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- Large Emoji -->
+    <TextView
+        android:id="@+id/tvEmoji"
+        android:text="💪"
+        android:textSize="120sp"
+        android:layout_marginBottom="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:text="Earn your\nscreen time."
+        android:textSize="42sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:lineSpacingExtra="6dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/tvDescription"
+        android:text="Block distracting apps until you\ndo one good habit every day."
+        android:textSize="16sp"
+        android:textColor="#8E8E93"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
