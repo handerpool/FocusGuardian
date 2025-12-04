@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Gradient progress ring -->
+    <item>
+        <rotate
+            android:fromDegrees="-90"
+            android:toDegrees="270">
+            <shape android:shape="ring"
+                android:innerRadiusRatio="2.5"
+                android:thicknessRatio="20"
+                android:useLevel="true">
+                <gradient
+                    android:type="sweep"
+                    android:startColor="#FF9500"
+                    android:centerColor="#FF6B00"
+                    android:endColor="#FF9500" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

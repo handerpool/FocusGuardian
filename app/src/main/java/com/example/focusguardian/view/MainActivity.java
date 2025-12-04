@@ -1,5 +1,6 @@
 package com.example.focusguardian.view;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
@@ -7,9 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +32,19 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout btnSelectApps, btnStartFocus, btnLogout;
-    private TextView tvWelcome, tvSelectedApps, tvFocusEmoji, tvFocusStatus, tvStartButtonText, tvUserName;
+    private TextView tvWelcome, tvSelectedApps, tvStartButtonText, tvUserName;
+    private TextView tvTimerDisplay, tvTimerStatus;
+    private ProgressBar timerProgress;
+    private View timerTapTarget, timerGlow;
     private SharedPreferences prefs;
     private boolean isFocusActive = false;
     private AuthRepository authRepository;
+    
+    private CountDownTimer countDownTimer;
+    private long remainingTimeMillis = 0;
+    private long totalTimeMillis = 0;
+    private Handler pulseHandler;
+    private Runnable pulseRunnable;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -92,10 +107,29 @@ public class MainActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btnLogout);
         tvWelcome = findViewById(R.id.tvWelcome);
         tvSelectedApps = findViewById(R.id.tvSelectedApps);
-        tvFocusEmoji = findViewById(R.id.tvFocusEmoji);
-        tvFocusStatus = findViewById(R.id.tvFocusStatus);
         tvStartButtonText = findViewById(R.id.tvStartButtonText);
         tvUserName = findViewById(R.id.tvUserName);
+        
+        // Timer views
+        tvTimerDisplay = findViewById(R.id.tvTimerDisplay);
+        tvTimerStatus = findViewById(R.id.tvTimerStatus);
+        timerProgress = findViewById(R.id.timerProgress);
+        timerTapTarget = findViewById(R.id.timerTapTarget);
+        timerGlow = findViewById(R.id.timerGlow);
+        
+        // Setup timer tap listener
+        if (timerTapTarget != null) {
+            timerTapTarget.setOnClickListener(v -> {
+                if (!isFocusActive) {
+                    startFocusSession();
+                } else {
+                    endFocusSession();
+                }
+            });
+        }
+        
+        // Initialize timer display
+        updateTimerDisplay(25 * 60 * 1000); // Default 25 minutes
     }
 
     private void setupClickListeners() {
@@ -174,16 +208,129 @@ public class MainActivity extends AppCompatActivity {
     private void updateFocusUI(boolean isActive) {
         if (isActive) {
             tvWelcome.setText("Focus Mode\nActive 🔥");
-            tvFocusEmoji.setText("🔥");
-            tvFocusStatus.setText("Stay focused!");
             tvStartButtonText.setText("End Session");
             btnStartFocus.setBackgroundResource(R.drawable.bg_button_secondary);
+            
+            // Update timer status
+            if (tvTimerStatus != null) {
+                tvTimerStatus.setText("FOCUS IN PROGRESS");
+                tvTimerStatus.setTextColor(0xFFFF9500);
+            }
+            
+            // Start glow pulse animation
+            startGlowPulse();
+            
+            // Resume countdown if there's remaining time
+            long savedEndTime = prefs.getLong("focus_end_time", 0);
+            if (savedEndTime > 0) {
+                remainingTimeMillis = savedEndTime - System.currentTimeMillis();
+                totalTimeMillis = prefs.getLong("focus_total_time", 25 * 60 * 1000);
+                if (remainingTimeMillis > 0) {
+                    startCountdownTimer();
+                }
+            }
         } else {
             tvWelcome.setText("Earn your\nscreen time.");
-            tvFocusEmoji.setText("💪");
-            tvFocusStatus.setText("Tap to Complete");
             tvStartButtonText.setText("Start Focus");
             btnStartFocus.setBackgroundResource(R.drawable.bg_button_primary);
+            
+            // Reset timer display
+            int duration = prefs.getInt("selected_duration", 25);
+            updateTimerDisplay(duration * 60 * 1000L);
+            
+            if (tvTimerStatus != null) {
+                tvTimerStatus.setText("TAP TO START");
+                tvTimerStatus.setTextColor(0xFFFF9500);
+            }
+            
+            if (timerProgress != null) {
+                timerProgress.setProgress(100);
+            }
+            
+            // Stop animations
+            stopGlowPulse();
+            stopCountdownTimer();
+        }
+    }
+    
+    private void updateTimerDisplay(long milliseconds) {
+        if (tvTimerDisplay != null) {
+            int totalSeconds = (int) (milliseconds / 1000);
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            tvTimerDisplay.setText(String.format("%02d:%02d", minutes, seconds));
+        }
+    }
+    
+    private void startCountdownTimer() {
+        stopCountdownTimer(); // Stop any existing timer
+        
+        countDownTimer = new CountDownTimer(remainingTimeMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                remainingTimeMillis = millisUntilFinished;
+                updateTimerDisplay(millisUntilFinished);
+                
+                // Update progress bar
+                if (timerProgress != null && totalTimeMillis > 0) {
+                    int progress = (int) ((millisUntilFinished * 100) / totalTimeMillis);
+                    timerProgress.setProgress(progress);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                updateTimerDisplay(0);
+                if (timerProgress != null) {
+                    timerProgress.setProgress(0);
+                }
+                if (tvTimerStatus != null) {
+                    tvTimerStatus.setText("SESSION COMPLETE!");
+                }
+                // Auto end session
+                endFocusSession();
+            }
+        };
+        countDownTimer.start();
+    }
+    
+    private void stopCountdownTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+    }
+    
+    private void startGlowPulse() {
+        if (timerGlow == null) return;
+        
+        pulseHandler = new Handler(Looper.getMainLooper());
+        pulseRunnable = new Runnable() {
+            boolean increasing = true;
+            float alpha = 0.3f;
+            
+            @Override
+            public void run() {
+                if (increasing) {
+                    alpha += 0.02f;
+                    if (alpha >= 0.7f) increasing = false;
+                } else {
+                    alpha -= 0.02f;
+                    if (alpha <= 0.3f) increasing = true;
+                }
+                timerGlow.setAlpha(alpha);
+                pulseHandler.postDelayed(this, 50);
+            }
+        };
+        pulseHandler.post(pulseRunnable);
+    }
+    
+    private void stopGlowPulse() {
+        if (pulseHandler != null && pulseRunnable != null) {
+            pulseHandler.removeCallbacks(pulseRunnable);
+        }
+        if (timerGlow != null) {
+            timerGlow.setAlpha(0.5f);
         }
     }
 
@@ -192,6 +339,19 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         updateSelectedAppsText();
         checkAndUpdateFocusState(); // This is the CRUCIAL part!
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Don't stop the timer, just the UI updates
+    }
+    
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopCountdownTimer();
+        stopGlowPulse();
     }
 
     private void updateSelectedAppsText() {

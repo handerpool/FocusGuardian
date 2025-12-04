@@ -124,21 +124,62 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <!-- Focus Circle Container -->
+        <!-- Countdown Timer Container -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="340dp"
             android:layout_marginBottom="24dp">
 
-            <!-- Enhanced Concentric Circles Background -->
+            <!-- Outer Glow Effect -->
             <View
-                android:id="@+id/focusCircleBg"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:id="@+id/timerGlow"
+                android:layout_width="320dp"
+                android:layout_height="320dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/bg_circle_focus_enhanced" />
+                android:alpha="0.5"
+                android:background="@drawable/bg_timer_glow" />
 
-            <!-- Center Content -->
+            <!-- Circular Progress Track (Background) -->
+            <ProgressBar
+                android:id="@+id/progressTrack"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_centerInParent="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/bg_timer_track"
+                android:rotation="-90" />
+
+            <!-- Circular Progress Bar -->
+            <ProgressBar
+                android:id="@+id/timerProgress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_centerInParent="true"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="100"
+                android:progressDrawable="@drawable/bg_timer_progress"
+                android:rotation="-90" />
+
+            <!-- Clock Face Background -->
+            <View
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_timer_face" />
+
+            <!-- Inner Accent Ring -->
+            <View
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_timer_inner_ring" />
+
+            <!-- Digital Clock Display -->
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
@@ -146,26 +187,76 @@
                 android:layout_centerInParent="true"
                 android:gravity="center">
 
-                <!-- Emoji Icon -->
+                <!-- Timer Display -->
                 <TextView
-                    android:id="@+id/tvFocusEmoji"
-                    android:text="💪"
-                    android:textSize="64sp"
-                    android:layout_marginBottom="12dp"
+                    android:id="@+id/tvTimerDisplay"
+                    android:text="25:00"
+                    android:textSize="52sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <!-- Status Text -->
+                <!-- Status Label -->
                 <TextView
-                    android:id="@+id/tvFocusStatus"
-                    android:text="Ready to Focus"
-                    android:textSize="15sp"
-                    android:textColor="#8E8E93"
+                    android:id="@+id/tvTimerStatus"
+                    android:text="TAP TO START"
+                    android:textSize="12sp"
+                    android:textColor="#FF9500"
                     android:textStyle="bold"
-                    android:letterSpacing="0.05"
+                    android:letterSpacing="0.15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <!-- Clock Hour Markers (12 dots around the circle) -->
+            <!-- Top (12 o'clock) -->
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="42dp"
+                android:background="@drawable/bg_timer_dot" />
+
+            <!-- Right (3 o'clock) -->
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="57dp"
+                android:background="@drawable/bg_timer_dot" />
+
+            <!-- Bottom (6 o'clock) -->
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="42dp"
+                android:background="@drawable/bg_timer_dot" />
+
+            <!-- Left (9 o'clock) -->
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="57dp"
+                android:background="@drawable/bg_timer_dot" />
+
+            <!-- Tap Target Overlay -->
+            <View
+                android:id="@+id/timerTapTarget"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
         </RelativeLayout>
 
         <!-- Stats Card -->

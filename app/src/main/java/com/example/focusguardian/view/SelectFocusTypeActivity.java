@@ -115,8 +115,19 @@ public class SelectFocusTypeActivity extends AppCompatActivity {
     }
 
     private void startFocusSession() {
-        // Save focus type to preferences
-        prefs.edit().putString("focus_type", selectedFocusType).apply();
+        // Save focus type and duration to preferences
+        prefs.edit()
+            .putString("focus_type", selectedFocusType)
+            .putInt("selected_duration", selectedDurationMinutes)
+            .apply();
+
+        // Calculate and save end time for countdown timer
+        long durationMillis = selectedDurationMinutes * 60 * 1000L;
+        long endTime = System.currentTimeMillis() + durationMillis;
+        prefs.edit()
+            .putLong("focus_end_time", endTime)
+            .putLong("focus_total_time", durationMillis)
+            .apply();
 
         // Start the monitoring service
         Intent serviceIntent = new Intent(this, AppMonitorService.class);
