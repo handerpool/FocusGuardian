@@ -43,7 +43,7 @@ public class IntroActivity3 extends AppCompatActivity {
     private void setupOptionButtons() {
         View.OnClickListener optionClickListener = v -> {
             if (selectedButton != null) {
-                selectedButton.setBackgroundResource(R.drawable.bg_button_secondary);
+                selectedButton.setBackgroundResource(R.drawable.bg_option_button);
                 selectedButton.setTextColor(Color.WHITE);
             }
 
@@ -52,7 +52,7 @@ public class IntroActivity3 extends AppCompatActivity {
             selectedButton.setTextColor(Color.BLACK);
 
             btnContinue3.setEnabled(true);
-            btnContinue3.setBackgroundResource(R.drawable.bg_button_primary);
+            btnContinue3.setBackgroundResource(R.drawable.bg_button_gradient_primary);
             btnContinue3.setTextColor(Color.BLACK);
             btnContinue3.setAlpha(1f);
         };

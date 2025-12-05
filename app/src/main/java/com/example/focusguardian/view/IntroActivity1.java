@@ -38,7 +38,7 @@ public class IntroActivity1 extends AppCompatActivity {
         View.OnClickListener optionClickListener = v -> {
             // Deselect previous button
             if (selectedButton != null) {
-                selectedButton.setBackgroundResource(R.drawable.bg_button_secondary);
+                selectedButton.setBackgroundResource(R.drawable.bg_option_button);
                 selectedButton.setTextColor(Color.WHITE);
             }
 
@@ -49,7 +49,7 @@ public class IntroActivity1 extends AppCompatActivity {
 
             // Enable continue button
             btnContinue1.setEnabled(true);
-            btnContinue1.setBackgroundResource(R.drawable.bg_button_primary);
+            btnContinue1.setBackgroundResource(R.drawable.bg_button_gradient_primary);
             btnContinue1.setTextColor(Color.BLACK);
             btnContinue1.setAlpha(1f);
         };

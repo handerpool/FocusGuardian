@@ -24,14 +24,13 @@ public class IntroActivity4 extends AppCompatActivity {
         btnContinue4.setOnClickListener(v -> {
             // Mark onboarding as complete
             SharedPreferences prefs = getSharedPreferences("fg_prefs", MODE_PRIVATE);
-            prefs.edit().putBoolean("first_launch", false).apply();
+            prefs.edit().putBoolean("onboarding_complete", true).apply();
 
-            // Go to select apps
-            Intent intent = new Intent(IntroActivity4.this, SelectAppsActivity.class);
+            // Go to main screen
+            Intent intent = new Intent(IntroActivity4.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-
-            // Clear back stack so user can't go back to intro
-            finishAffinity();
+            finish();
         });
     }
 }

@@ -5,46 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Progress Bar -->
-    <LinearLayout
-        android:orientation="vertical"
-        android:paddingTop="60dp"
+    <!-- Header with Progress -->
+    <RelativeLayout
+        android:paddingTop="48dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
         android:paddingBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:progress="50"
-            android:max="100"
-            android:progressTint="#FF9500"
-            android:progressBackgroundTint="#2C2C2E"
-            android:layout_marginBottom="40dp" />
+        <!-- Background gradient overlay -->
+        <View
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="-50dp"
+            android:layout_marginEnd="-50dp"
+            android:alpha="0.12"
+            android:background="@drawable/bg_circle_focus_enhanced" />
 
-        <!-- Header -->
-        <TextView
-            android:text="What is your average\nscreen time right now?"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="32sp"
-            android:lineSpacingExtra="4dp"
-            android:layout_marginBottom="12dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:text="We're going to take a wild guess and say that you scroll on your phone more than you should..."
-            android:textColor="#8E8E93"
-            android:textSize="16sp"
-            android:lineSpacingExtra="4dp"
-            android:layout_marginBottom="40dp"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:layout_height="wrap_content">
+
+            <!-- Progress indicator -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_button_gradient_primary" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_button_gradient_primary" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="#2C2C2E" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:background="#2C2C2E" />
+            </LinearLayout>
+
+            <TextView
+                android:text="2 of 4"
+                android:textSize="12sp"
+                android:textColor="#636366"
+                android:layout_marginBottom="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!-- Header -->
+            <TextView
+                android:text="Screen Time 📱"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="34sp"
+                android:layout_marginBottom="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="What is your average screen time right now? We're going to guess it's more than you'd like..."
+                android:textColor="#8E8E93"
+                android:textSize="16sp"
+                android:lineSpacingExtra="6dp"
+                android:layout_marginBottom="32dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <!-- Options Container -->
     <ScrollView
@@ -53,22 +102,23 @@
         android:layout_weight="1"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp">
+            android:paddingBottom="24dp">
 
             <Button
                 android:id="@+id/btnOption1"
-                android:text="⏱️ Under 1 hour"
-                android:textSize="16sp"
+                android:text="⏱️  Under 1 hour"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
+                android:background="@drawable/bg_option_button"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
@@ -78,12 +128,12 @@
 
             <Button
                 android:id="@+id/btnOption2"
-                android:text="📱 1–3 hours"
-                android:textSize="16sp"
+                android:text="📱  1–3 hours"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
+                android:background="@drawable/bg_option_button"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
@@ -93,12 +143,12 @@
 
             <Button
                 android:id="@+id/btnOption3"
-                android:text="⏰ 3–4 hours"
-                android:textSize="16sp"
+                android:text="⏰  3–4 hours"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
+                android:background="@drawable/bg_option_button"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
@@ -108,12 +158,12 @@
 
             <Button
                 android:id="@+id/btnOption4"
-                android:text="📲 4–5 hours"
-                android:textSize="16sp"
+                android:text="📲  4–5 hours"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
+                android:background="@drawable/bg_option_button"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
@@ -123,12 +173,12 @@
 
             <Button
                 android:id="@+id/btnOption5"
-                android:text="😰 5–7 hours"
-                android:textSize="16sp"
+                android:text="😰  5–7 hours"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
+                android:background="@drawable/bg_option_button"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
@@ -138,12 +188,12 @@
 
             <Button
                 android:id="@+id/btnOption6"
-                android:text="🚨 7+ hours"
-                android:textSize="16sp"
+                android:text="🚨  7+ hours"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:textAllCaps="false"
-                android:background="@drawable/bg_button_secondary"
+                android:background="@drawable/bg_option_button"
                 android:gravity="center"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
@@ -152,29 +202,34 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Bottom Action -->
+    <!-- Bottom Action with gradient -->
     <LinearLayout
         android:orientation="vertical"
-        android:background="#0A0A0A"
+        android:background="@drawable/bg_bottom_gradient"
         android:paddingTop="20dp"
         android:paddingBottom="32dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:elevation="8dp"
+        android:elevation="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btnContinue2"
-            android:text="Continue"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#636366"
-            android:textAllCaps="false"
-            android:background="@drawable/rounded_button_disabled"
-            android:enabled="false"
-            android:alpha="0.5"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="64dp" />
+            android:layout_height="60dp">
+
+            <Button
+                android:id="@+id/btnContinue2"
+                android:text="Continue"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#636366"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_button_secondary_enhanced"
+                android:enabled="false"
+                android:alpha="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

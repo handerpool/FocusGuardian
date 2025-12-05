@@ -2,114 +2,292 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="#000000"
-    android:gravity="center"
-    android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Progress Bar -->
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
+    <!-- Header with Progress -->
+    <RelativeLayout
+        android:paddingTop="48dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:progress="100"
-        android:max="100"
-        android:progressTint="#FF9500"
-        android:progressBackgroundTint="#2C2C2E"
-        android:layout_marginBottom="60dp" />
+        android:layout_height="wrap_content">
 
-    <!-- Celebration Icon -->
-    <TextView
-        android:text="🎉"
-        android:textSize="120sp"
-        android:layout_marginBottom="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <!-- Background gradient overlay -->
+        <View
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="-50dp"
+            android:layout_marginEnd="-50dp"
+            android:alpha="0.12"
+            android:background="@drawable/bg_circle_focus_enhanced" />
 
-    <!-- Header -->
-    <TextView
-        android:text="You're all set!"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="36sp"
-        android:gravity="center"
-        android:layout_marginBottom="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:text="Choose the apps\nyou want to block"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:lineSpacingExtra="4dp"
-        android:layout_marginBottom="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <!-- Progress indicator - All complete -->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <TextView
-        android:text="Select the distractions you want to stay away from while focusing on your goals."
-        android:textColor="#8E8E93"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:lineSpacingExtra="4dp"
-        android:layout_marginBottom="60dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_button_gradient_primary" />
 
-    <!-- Spacer -->
-    <View
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_button_gradient_primary" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/bg_button_gradient_primary" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="4dp"
+                    android:background="@drawable/bg_button_gradient_primary" />
+            </LinearLayout>
+
+            <TextView
+                android:text="4 of 4"
+                android:textSize="12sp"
+                android:textColor="#636366"
+                android:layout_marginBottom="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Main Content - Centered -->
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <!-- Action Button -->
-    <LinearLayout
-        android:id="@+id/btnContinue4"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_button_primary"
+        android:layout_weight="1"
         android:gravity="center"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="64dp">
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
 
-        <TextView
-            android:text="📱"
-            android:textSize="24sp"
-            android:layout_marginEnd="12dp"
+        <!-- Success Icon with Glow -->
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp">
 
+            <!-- Outer glow -->
+            <View
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:alpha="0.3"
+                android:background="@drawable/bg_circle_focus_enhanced" />
+
+            <!-- Inner circle with emoji -->
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_overlay_icon_circle">
+
+                <TextView
+                    android:text="🎉"
+                    android:textSize="56sp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <!-- Success Badge -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_badge_orange"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:text="✓"
+                android:textSize="14sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginEnd="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="SETUP COMPLETE"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Header -->
         <TextView
-            android:text="Select Apps to Block"
-            android:textSize="18sp"
+            android:text="You're All Set! 🚀"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:textColor="#000000"
+            android:textSize="34sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text=" →"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:layout_width="wrap_content"
+            android:text="Your Focus Guardian is ready to help you stay productive and reach your goals."
+            android:textColor="#8E8E93"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:lineSpacingExtra="6dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginBottom="40dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <!-- Features Preview Card -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/bg_overlay_card"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="🛡️"
+                    android:textSize="20sp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Block distracting apps"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="⏱️"
+                    android:textSize="20sp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Track your focus sessions"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="📈"
+                    android:textSize="20sp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="Build better habits"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Skip option -->
-    <TextView
-        android:text="I'll do this later"
-        android:textSize="14sp"
-        android:textColor="#636366"
-        android:gravity="center"
-        android:padding="12dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <!-- Bottom Action with gradient -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@drawable/bg_bottom_gradient"
+        android:paddingTop="20dp"
+        android:paddingBottom="32dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:elevation="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <LinearLayout
+                android:id="@+id/btnContinue4"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_button_gradient_primary"
+                android:gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="Get Started"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="  →"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

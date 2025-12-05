@@ -191,7 +191,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void navigateToMain() {
-        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        // New users go to onboarding first
+        Intent intent = new Intent(RegisterActivity.this, IntroActivity1.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
