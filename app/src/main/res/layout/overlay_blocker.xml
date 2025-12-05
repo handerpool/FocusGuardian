@@ -3,34 +3,230 @@
     android:id="@+id/overlayRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CC000000"> <!-- semi-transparent black -->
+    android:background="#B3000000">
 
+    <!-- Decorative background elements -->
+    <View
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="-100dp"
+        android:layout_marginEnd="-100dp"
+        android:alpha="0.08"
+        android:background="@drawable/bg_circle_focus_enhanced" />
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="-50dp"
+        android:layout_marginStart="-50dp"
+        android:alpha="0.06"
+        android:background="@drawable/bg_circle_focus_enhanced" />
+
+    <!-- Main Content Card -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_overlay_card"
+        android:elevation="24dp"
         android:orientation="vertical"
-        android:padding="32dp">
+        android:paddingStart="28dp"
+        android:paddingTop="40dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="32dp">
 
+        <!-- Icon with Glow Effect -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <!-- Outer glow -->
+            <View
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_overlay_icon_glow" />
+
+            <!-- Icon circle -->
+            <FrameLayout
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_overlay_icon_circle">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_shield_focus"
+                    android:contentDescription="Focus Shield" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <!-- Status Badge -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_badge_orange"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="6dp">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_timer_dot" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FOCUS MODE ACTIVE"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1" />
+        </LinearLayout>
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvBlockedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="App Blocked"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <!-- Message -->
         <TextView
             android:id="@+id/tvBlockedMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Focus Mode Active\nStay away from distractions!"
-            android:textColor="@android:color/white"
-            android:textSize="22sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
             android:gravity="center"
-            android:padding="16dp"
-            android:background="@drawable/overlay_message_bg" />
+            android:lineSpacingExtra="4dp"
+            android:text="Stay focused! This app is blocked\nduring your focus session."
+            android:textColor="#8E8E93"
+            android:textSize="15sp" />
 
-        <Button
-            android:id="@+id/btnCloseOverlay"
-            android:layout_width="wrap_content"
+        <!-- Time Remaining Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="I understand"
-            android:textAllCaps="false"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/bg_overlay_timer_card"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time Remaining"
+                android:textColor="#8E8E93"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tvTimeRemaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="25:00"
+                android:textColor="#FF9500"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:fontFamily="monospace" />
+        </LinearLayout>
+
+        <!-- Motivational Quote -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@android:color/holo_red_light"
-            android:textColor="@android:color/white" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="💪"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="You're doing great! Stay strong."
+                android:textColor="#AEAEB2"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="24dp"
+            android:background="#2C2C2E" />
+
+        <!-- I Understand Button -->
+        <FrameLayout
+            android:id="@+id/btnCloseOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@drawable/bg_overlay_button_primary"
+            android:clickable="true"
+            android:focusable="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_check_circle_orange"
+                    android:tint="#000000"
+                    android:contentDescription="Check" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I Understand"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
+
+    <!-- Bottom safe area hint -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="48dp"
+        android:text="Focus Guardian is protecting your time"
+        android:textColor="#4E4E52"
+        android:textSize="12sp" />
 </FrameLayout>
