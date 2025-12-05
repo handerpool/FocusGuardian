@@ -32,12 +32,15 @@ public class SelectAppsActivity extends AppCompatActivity {
 
     private LinearLayout listContainer, btnSave, btnCancel;
     private TextView tvSelectedCount, tvSelectionHint, btnSelectAll;
+    private TextView tabAll, tabSocial, tabGames, tabMedia;
     private EditText etSearch;
     private View btnBack, iconGlow;
     private SharedPreferences prefs;
     private int selectedCount = 0;
     private List<LinearLayout> appItems = new ArrayList<>();
     private boolean allSelected = false;
+    private String currentFilter = "all";
+    private TextView selectedTab;
 
     // Extended app list with categories
     private static final String[][] APPS = new String[][]{
@@ -76,6 +79,13 @@ public class SelectAppsActivity extends AppCompatActivity {
         etSearch = findViewById(R.id.etSearch);
         btnBack = findViewById(R.id.btnBack);
         iconGlow = findViewById(R.id.iconGlow);
+        
+        // Category tabs
+        tabAll = findViewById(R.id.tabAll);
+        tabSocial = findViewById(R.id.tabSocial);
+        tabGames = findViewById(R.id.tabGames);
+        tabMedia = findViewById(R.id.tabMedia);
+        selectedTab = tabAll;
 
         prefs = getSharedPreferences("fg_prefs", MODE_PRIVATE);
     }
@@ -98,6 +108,12 @@ public class SelectAppsActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(v -> finish());
 
         btnSelectAll.setOnClickListener(v -> toggleSelectAll());
+
+        // Setup category tab listeners
+        tabAll.setOnClickListener(v -> selectTab(tabAll, "all"));
+        tabSocial.setOnClickListener(v -> selectTab(tabSocial, "social"));
+        tabGames.setOnClickListener(v -> selectTab(tabGames, "games"));
+        tabMedia.setOnClickListener(v -> selectTab(tabMedia, "media"));
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -132,12 +148,37 @@ public class SelectAppsActivity extends AppCompatActivity {
         for (int i = 0; i < appItems.size(); i++) {
             LinearLayout item = appItems.get(i);
             String appName = APPS[i][1].toLowerCase();
-            if (appName.contains(lowerQuery) || query.isEmpty()) {
+            String category = APPS[i][4];
+            
+            boolean matchesSearch = appName.contains(lowerQuery) || query.isEmpty();
+            boolean matchesCategory = currentFilter.equals("all") || category.equals(currentFilter);
+            
+            if (matchesSearch && matchesCategory) {
                 item.setVisibility(View.VISIBLE);
             } else {
                 item.setVisibility(View.GONE);
             }
         }
+    }
+
+    private void selectTab(TextView tab, String filter) {
+        // Update current filter
+        currentFilter = filter;
+        
+        // Deselect previous tab
+        if (selectedTab != null) {
+            selectedTab.setBackgroundResource(R.drawable.bg_duration_button);
+            selectedTab.setTextColor(Color.WHITE);
+        }
+        
+        // Select new tab
+        selectedTab = tab;
+        selectedTab.setBackgroundResource(R.drawable.bg_button_gradient_primary);
+        selectedTab.setTextColor(Color.BLACK);
+        
+        // Apply filter with current search query
+        String searchQuery = etSearch.getText().toString();
+        filterApps(searchQuery);
     }
 
     private void toggleSelectAll() {
