@@ -311,7 +311,7 @@ public class ProofUploadActivity extends AppCompatActivity {
         }
 
         String focusType = prefs.getString("focus_type", "coding");
-        boolean isValid = checkFocusText(focusType, text);
+        AnalysisResult result = analyzeProofContent(focusType, text);
 
         String cleanText = text.trim().replaceAll("\\s+", " ").replaceAll("[\\r\\n]+", "\n");
         String[] lines = cleanText.split("\n");
@@ -329,15 +329,22 @@ public class ProofUploadActivity extends AppCompatActivity {
 
         if (cleanText.length() > 150 || lines.length > 3) preview.append("...");
 
-        if (isValid) {
+        if (result.isValid && result.confidence >= 70) {
             showSuccessUI(
-                    focusType + " verified!",
-                    "Verified " + focusType
+                    focusType + " verified! (" + result.confidence + "% match)",
+                    "✓ " + result.reason
+            );
+            btnSubmit.setEnabled(true);
+        } else if (result.confidence >= 40) {
+            showWarningUI(
+                    "Partial match (" + result.confidence + "%)",
+                    result.reason + "\n\n📄 Detected:\n" +
+                            preview.toString() + "\n\nYou can still submit."
             );
             btnSubmit.setEnabled(true);
         } else {
             showWarningUI(
-                    "Image unclear",
+                    "Low confidence (" + result.confidence + "%)",
                     "Doesn't clearly match " + focusType + "\n\n📄 Detected:\n" +
                             preview.toString() + "\n\nYou can still submit if correct."
             );
@@ -345,25 +352,258 @@ public class ProofUploadActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkFocusText(String focusType, String text) {
-        if (text == null || text.isEmpty()) return false;
+    // Analysis result class to hold validation data
+    private static class AnalysisResult {
+        boolean isValid;
+        int confidence;
+        String reason;
+        
+        AnalysisResult(boolean isValid, int confidence, String reason) {
+            this.isValid = isValid;
+            this.confidence = confidence;
+            this.reason = reason;
+        }
+    }
+
+    private AnalysisResult analyzeProofContent(String focusType, String text) {
+        if (text == null || text.isEmpty()) {
+            return new AnalysisResult(false, 0, "No content detected");
+        }
+        
         String lowerText = text.toLowerCase();
+        int score = 0;
+        int maxScore = 100;
+        StringBuilder matchedItems = new StringBuilder();
 
         switch (focusType.toLowerCase()) {
             case "coding":
             case "programming":
-                return lowerText.contains("class") || lowerText.contains("public") ||
-                        lowerText.contains("void") || lowerText.contains("function") ||
-                        lowerText.contains("private") || lowerText.contains("import");
+                // Programming keywords - primary indicators (high weight)
+                String[] codeKeywordsPrimary = {
+                    "function", "class", "public", "private", "protected", "static",
+                    "void", "return", "import", "package", "interface", "extends",
+                    "implements", "const", "let", "var", "def", "async", "await"
+                };
+                
+                // Secondary indicators (medium weight)
+                String[] codeKeywordsSecondary = {
+                    "if", "else", "for", "while", "switch", "case", "try", "catch",
+                    "throw", "new", "null", "true", "false", "this", "super"
+                };
+                
+                // Code patterns (high weight)
+                String[] codePatterns = {
+                    "(){", "() {", "};", ");", "=>", "->", "==", "!=", "<=", ">=",
+                    "++", "--", "+=", "-=", "[]", "{}", "()", "/**", "//", "/*"
+                };
+                
+                // IDE/Editor indicators
+                String[] ideIndicators = {
+                    "android", "studio", "intellij", "vscode", "visual studio",
+                    "eclipse", "sublime", "atom", "terminal", "console", "debug",
+                    "build", "run", "compile", "error", "warning", "git"
+                };
+                
+                int primaryMatches = 0;
+                for (String keyword : codeKeywordsPrimary) {
+                    if (lowerText.contains(keyword)) {
+                        primaryMatches++;
+                        if (primaryMatches <= 3) matchedItems.append(keyword).append(", ");
+                    }
+                }
+                score += Math.min(primaryMatches * 12, 48); // Max 48 points
+                
+                int secondaryMatches = 0;
+                for (String keyword : codeKeywordsSecondary) {
+                    if (lowerText.contains(keyword)) secondaryMatches++;
+                }
+                score += Math.min(secondaryMatches * 5, 20); // Max 20 points
+                
+                int patternMatches = 0;
+                for (String pattern : codePatterns) {
+                    if (text.contains(pattern)) patternMatches++;
+                }
+                score += Math.min(patternMatches * 4, 20); // Max 20 points
+                
+                int ideMatches = 0;
+                for (String indicator : ideIndicators) {
+                    if (lowerText.contains(indicator)) ideMatches++;
+                }
+                score += Math.min(ideMatches * 6, 12); // Max 12 points
+                
+                // Check for code structure patterns using regex
+                if (text.matches("(?s).*\\b\\w+\\s*\\([^)]*\\)\\s*\\{.*")) score += 10;
+                if (text.matches("(?s).*\\b(int|string|boolean|float|double|void)\\b.*")) score += 5;
+                
+                String reason = matchedItems.length() > 0 ? 
+                    "Found: " + matchedItems.toString().replaceAll(", $", "") : "Code patterns detected";
+                return new AnalysisResult(score >= 70, Math.min(score, 100), reason);
+                
             case "studying":
-                return lowerText.contains("chapter") || lowerText.contains("page");
+            case "reading":
+                // Academic/Study keywords
+                String[] studyKeywordsPrimary = {
+                    "chapter", "page", "section", "paragraph", "introduction",
+                    "conclusion", "summary", "abstract", "thesis", "hypothesis",
+                    "bibliography", "reference", "citation", "figure", "table"
+                };
+                
+                String[] studyKeywordsSecondary = {
+                    "definition", "example", "note", "important", "key", "concept",
+                    "theory", "practice", "exercise", "question", "answer", "test",
+                    "exam", "quiz", "study", "learn", "understand", "explain"
+                };
+                
+                String[] academicSubjects = {
+                    "math", "science", "history", "english", "physics", "chemistry",
+                    "biology", "literature", "economics", "psychology", "sociology",
+                    "philosophy", "calculus", "algebra", "geometry", "statistics"
+                };
+                
+                int studyPrimaryMatches = 0;
+                for (String keyword : studyKeywordsPrimary) {
+                    if (lowerText.contains(keyword)) {
+                        studyPrimaryMatches++;
+                        if (studyPrimaryMatches <= 3) matchedItems.append(keyword).append(", ");
+                    }
+                }
+                score += Math.min(studyPrimaryMatches * 15, 45);
+                
+                int studySecondaryMatches = 0;
+                for (String keyword : studyKeywordsSecondary) {
+                    if (lowerText.contains(keyword)) studySecondaryMatches++;
+                }
+                score += Math.min(studySecondaryMatches * 8, 32);
+                
+                int subjectMatches = 0;
+                for (String subject : academicSubjects) {
+                    if (lowerText.contains(subject)) subjectMatches++;
+                }
+                score += Math.min(subjectMatches * 8, 16);
+                
+                // Check for numbered lists or bullet points (common in notes)
+                if (text.matches("(?s).*(\\d+\\.\\s+|•\\s+|\\-\\s+).*")) score += 7;
+                
+                reason = matchedItems.length() > 0 ? 
+                    "Found: " + matchedItems.toString().replaceAll(", $", "") : "Study content detected";
+                return new AnalysisResult(score >= 70, Math.min(score, 100), reason);
+                
             case "cooking":
-                return lowerText.contains("recipe") || lowerText.contains("ingredients");
+            case "baking":
+                // Recipe keywords
+                String[] cookingKeywordsPrimary = {
+                    "recipe", "ingredients", "instructions", "directions", "step",
+                    "cook", "bake", "fry", "boil", "simmer", "roast", "grill",
+                    "mix", "stir", "blend", "chop", "slice", "dice", "mince"
+                };
+                
+                String[] cookingKeywordsSecondary = {
+                    "preheat", "oven", "pan", "pot", "bowl", "cup", "tablespoon",
+                    "teaspoon", "gram", "ounce", "pound", "liter", "minute", "hour",
+                    "temperature", "degrees", "fahrenheit", "celsius", "serve"
+                };
+                
+                String[] commonIngredients = {
+                    "salt", "pepper", "sugar", "flour", "butter", "oil", "egg",
+                    "milk", "water", "chicken", "beef", "onion", "garlic", "tomato",
+                    "cheese", "cream", "sauce", "spice", "herb", "vegetable"
+                };
+                
+                int cookingPrimaryMatches = 0;
+                for (String keyword : cookingKeywordsPrimary) {
+                    if (lowerText.contains(keyword)) {
+                        cookingPrimaryMatches++;
+                        if (cookingPrimaryMatches <= 3) matchedItems.append(keyword).append(", ");
+                    }
+                }
+                score += Math.min(cookingPrimaryMatches * 12, 48);
+                
+                int cookingSecondaryMatches = 0;
+                for (String keyword : cookingKeywordsSecondary) {
+                    if (lowerText.contains(keyword)) cookingSecondaryMatches++;
+                }
+                score += Math.min(cookingSecondaryMatches * 6, 24);
+                
+                int ingredientMatches = 0;
+                for (String ingredient : commonIngredients) {
+                    if (lowerText.contains(ingredient)) ingredientMatches++;
+                }
+                score += Math.min(ingredientMatches * 4, 20);
+                
+                // Check for measurements pattern
+                if (text.matches("(?s).*\\d+\\s*(cup|tbsp|tsp|oz|g|ml|lb).*")) score += 8;
+                
+                reason = matchedItems.length() > 0 ? 
+                    "Found: " + matchedItems.toString().replaceAll(", $", "") : "Recipe content detected";
+                return new AnalysisResult(score >= 70, Math.min(score, 100), reason);
+                
             case "training":
-                return lowerText.contains("reps") || lowerText.contains("exercise");
+            case "workout":
+            case "exercise":
+                // Fitness keywords
+                String[] fitnessKeywordsPrimary = {
+                    "exercise", "workout", "training", "reps", "sets", "rest",
+                    "weight", "cardio", "strength", "endurance", "flexibility",
+                    "warmup", "cooldown", "stretch", "routine", "program"
+                };
+                
+                String[] fitnessKeywordsSecondary = {
+                    "squat", "deadlift", "bench", "press", "curl", "row", "pull",
+                    "push", "lunge", "plank", "crunch", "burpee", "run", "jog",
+                    "sprint", "jump", "lift", "muscle", "core", "arm", "leg"
+                };
+                
+                String[] fitnessMetrics = {
+                    "minute", "second", "mile", "kilometer", "pound", "kilogram",
+                    "heart", "rate", "calories", "burned", "distance", "time",
+                    "speed", "pace", "duration", "interval", "recovery"
+                };
+                
+                int fitnessPrimaryMatches = 0;
+                for (String keyword : fitnessKeywordsPrimary) {
+                    if (lowerText.contains(keyword)) {
+                        fitnessPrimaryMatches++;
+                        if (fitnessPrimaryMatches <= 3) matchedItems.append(keyword).append(", ");
+                    }
+                }
+                score += Math.min(fitnessPrimaryMatches * 12, 48);
+                
+                int fitnessSecondaryMatches = 0;
+                for (String keyword : fitnessKeywordsSecondary) {
+                    if (lowerText.contains(keyword)) fitnessSecondaryMatches++;
+                }
+                score += Math.min(fitnessSecondaryMatches * 6, 30);
+                
+                int metricMatches = 0;
+                for (String metric : fitnessMetrics) {
+                    if (lowerText.contains(metric)) metricMatches++;
+                }
+                score += Math.min(metricMatches * 4, 16);
+                
+                // Check for rep/set patterns like "3x10" or "10 reps"
+                if (text.matches("(?s).*\\d+\\s*[xX]\\s*\\d+.*")) score += 6;
+                if (text.matches("(?s).*\\d+\\s*(reps?|sets?).*")) score += 6;
+                
+                reason = matchedItems.length() > 0 ? 
+                    "Found: " + matchedItems.toString().replaceAll(", $", "") : "Fitness content detected";
+                return new AnalysisResult(score >= 70, Math.min(score, 100), reason);
+                
             default:
-                return text.trim().length() > 30;
+                // Generic content check - just verify there's meaningful text
+                int wordCount = text.split("\\s+").length;
+                if (wordCount >= 50) score = 80;
+                else if (wordCount >= 30) score = 65;
+                else if (wordCount >= 15) score = 50;
+                else if (wordCount >= 5) score = 30;
+                else score = 10;
+                
+                return new AnalysisResult(score >= 60, score, wordCount + " words detected");
         }
+    }
+
+    // Keep old method for backward compatibility but it's no longer used
+    private boolean checkFocusText(String focusType, String text) {
+        return analyzeProofContent(focusType, text).isValid;
     }
 
     private void endFocusSession(String message) {
